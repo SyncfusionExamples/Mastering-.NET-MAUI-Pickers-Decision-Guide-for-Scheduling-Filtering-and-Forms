@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:button="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+             xmlns:vm="clr-namespace:PickersSample.ViewModels"
+             x:Class="PickersSample.MainPage"
+             x:DataType="vm:MainViewModel"
+             Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16" WidthRequest="500">
+            <Label Text="Syncfusion Pickers in .NET MAUI"
+                   FontSize="24"
+                   FontAttributes="Bold" />
+
+            <Label Text="Choose a sample to explore"
+                   FontSize="14" />
+
+            <button:SfButton Text="Date Picker"
+                             Command="{Binding NavigateDatePickerCommand}" />
+
+            <button:SfButton Text="Time Picker"
+                             Command="{Binding NavigateTimePickerCommand}" />
+
+            <button:SfButton Text="Date Time Picker"
+                             Command="{Binding NavigateDateTimePickerCommand}" />
+
+            <button:SfButton Text="Pickers"
+                             Command="{Binding NavigatePickerCommand}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
