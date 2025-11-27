@@ -48,7 +48,7 @@ Syncfusion’s .NET MAUI Pickers adapt naturally to three common workflows — s
 
 ## Output
 
-![Pickers_Blog_Demo]()
+![Pickers_Blog_Demo](https://github.com/user-attachments/assets/a68fbdc2-f4e8-46b9-9c0f-be6dd37b1b3f)
 
 ## Troubleshooting
 
