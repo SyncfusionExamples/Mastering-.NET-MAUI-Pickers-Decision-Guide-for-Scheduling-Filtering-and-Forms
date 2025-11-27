@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:core="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+             xmlns:popUp="clr-namespace:Syncfusion.Maui.Popup;assembly=Syncfusion.Maui.Popup"
+             xmlns:picker="clr-namespace:Syncfusion.Maui.Picker;assembly=Syncfusion.Maui.Picker"
+             xmlns:editors="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
+             x:Class="PickersSample.Pages.PickerPage"
+             xmlns:vm="clr-namespace:PickersSample.Pages"
+             x:DataType="vm:PickerPage">
+    
+    <Grid Padding="10">
+        <Border x:Name="frame" IsVisible="False" Margin="0" Padding="0" BackgroundColor="Transparent" Stroke="{AppThemeBinding Light={StaticResource BorderLight}, Dark={StaticResource Border}}" HeightRequest="600" WidthRequest="370" VerticalOptions="Center" HorizontalOptions="Center">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="16" />
+            </Border.StrokeShape>
+            <Grid x:Name="grid" Grid.Column="1" WidthRequest="350" BackgroundColor="Transparent" VerticalOptions="Center" HorizontalOptions="Center" RowSpacing="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="1"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Label Text="International Flights" HorizontalOptions="Center" VerticalOptions="Center" Padding="5" FontAttributes="Bold" FontSize="18" Margin="0,10,0,0" />
+                <BoxView Grid.Row="1" BackgroundColor="{AppThemeBinding Light={StaticResource BorderLight}, Dark={StaticResource Border}}"/>
+                <StackLayout Grid.Row="2" WidthRequest="300" >
+                    <StackLayout Orientation="Vertical" Padding="0,15,0,0">
+                        <Label Text="From" TextColor="Gray"/>
+                        <StackLayout Orientation="Horizontal" Padding="0, 3, 0, 0">
+                            <core:SfTextInputLayout WidthRequest="300" ShowHint="False" HeightRequest="50" ContainerType="Outlined" ReserveSpaceForAssistiveLabels="False" TrailingViewPosition="Inside" ContainerBackground="Transparent" >
+                                <core:SfTextInputLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                                </core:SfTextInputLayout.GestureRecognizers>
+                                <Label x:Name="fromLabel" HeightRequest="{OnPlatform MacCatalyst=50}" Text="Chennai, India" VerticalTextAlignment="Center" />
+                                <core:SfTextInputLayout.TrailingView>
+                                    <Path Data="M10.7,4.5C7.4999914,4.5 4.9000191,7.3000183 4.9000191,10.800018 4.9000191,14.300018 7.4999914,17.100006 10.7,17.100006 13.900009,17.100006 16.499982,14.300018 16.499982,10.800018 16.599957,7.3000183 13.999984,4.5 10.7,4.5z M10.7,0C16.599957,0 21.400001,5.2000122 21.400001,11.5 21.400001,17.899994 10.7,32 10.7,32 10.7,32 5.5881173E-08,17.899994 0,11.5 5.5881173E-08,5.2000122 4.7999825,0 10.7,0z" Fill="Black" WidthRequest="25" HeightRequest="35" Margin="0,0,0,0"></Path>
+                                </core:SfTextInputLayout.TrailingView>
+                            </core:SfTextInputLayout>
+                        </StackLayout>
+                        <picker:SfPicker x:Name="fromPicker" Mode="Dialog" SelectionChanged="FromPicker_SelectionChanged" OkButtonClicked="FromPicker_OkButtonClicked" CancelButtonClicked="FromPicker_CancelButtonClicked">
+                            <picker:SfPicker.ColumnHeaderView>
+                                <picker:PickerColumnHeaderView Height="40">
+                                    <picker:PickerColumnHeaderView.TextStyle>
+                                        <picker:PickerTextStyle FontSize="16"  TextColor="{AppThemeBinding Light={StaticResource TextColourAlt1Light}, Dark={StaticResource TextColourAlt1}}"/>
+                                    </picker:PickerColumnHeaderView.TextStyle>
+                                </picker:PickerColumnHeaderView>
+                            </picker:SfPicker.ColumnHeaderView>
+                        </picker:SfPicker>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Vertical" Padding="0,15,0,0">
+                        <Label Text="To" TextColor="Gray"/>
+                        <StackLayout Orientation="Horizontal" Padding="0, 3, 0, 0">
+                            <core:SfTextInputLayout WidthRequest="300" ShowHint="False" HeightRequest="50" ContainerType="Outlined" ReserveSpaceForAssistiveLabels="False" TrailingViewPosition="Inside" ContainerBackground="Transparent" >
+                                <core:SfTextInputLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1" />
+                                </core:SfTextInputLayout.GestureRecognizers>
+                                <Label x:Name="toLabel" HeightRequest="{OnPlatform MacCatalyst=50}" Text="Boston, USA" VerticalTextAlignment="Center"/>
+                                <core:SfTextInputLayout.TrailingView>
+                                    <Path Data="M10.7,4.5C7.4999914,4.5 4.9000191,7.3000183 4.9000191,10.800018 4.9000191,14.300018 7.4999914,17.100006 10.7,17.100006 13.900009,17.100006 16.499982,14.300018 16.499982,10.800018 16.599957,7.3000183 13.999984,4.5 10.7,4.5z M10.7,0C16.599957,0 21.400001,5.2000122 21.400001,11.5 21.400001,17.899994 10.7,32 10.7,32 10.7,32 5.5881173E-08,17.899994 0,11.5 5.5881173E-08,5.2000122 4.7999825,0 10.7,0z" Fill="Black" WidthRequest="25" HeightRequest="35" Margin="0,0,0,0"></Path>
+                                </core:SfTextInputLayout.TrailingView>
+                            </core:SfTextInputLayout>
+                        </StackLayout>
+                        <picker:SfPicker x:Name="toPicker" Mode="Dialog" SelectionChanged="ToPicker_SelectionChanged" OkButtonClicked="ToPicker_OkButtonClicked" CancelButtonClicked="ToPicker_CancelButtonClicked">
+                            <picker:SfPicker.ColumnHeaderView>
+                                <picker:PickerColumnHeaderView Height="40">
+                                    <picker:PickerColumnHeaderView.TextStyle>
+                                        <picker:PickerTextStyle FontSize="16" TextColor="{AppThemeBinding Light={StaticResource TextColourLight}, Dark={StaticResource TextColour}}"/>
+                                    </picker:PickerColumnHeaderView.TextStyle>
+                                </picker:PickerColumnHeaderView>
+                            </picker:SfPicker.ColumnHeaderView>
+                        </picker:SfPicker>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Vertical" Padding="0,15,0,0">
+                        <Label Text="Departure date" TextColor="Gray"/>
+                        <StackLayout Orientation="Horizontal" Padding="0, 3, 0, 0">
+                            <core:SfTextInputLayout WidthRequest="300" ShowHint="False" HeightRequest="50" ContainerType="Outlined" ReserveSpaceForAssistiveLabels="False" TrailingViewPosition="Inside" ContainerBackground="Transparent" >
+                                <core:SfTextInputLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="DepartureDatePicker_OnPopUpOpened" />
+                                </core:SfTextInputLayout.GestureRecognizers>
+                                <Label x:Name="departureDateLabel" HeightRequest="{OnPlatform MacCatalyst=50}" VerticalTextAlignment="Center"/>
+                                <core:SfTextInputLayout.TrailingView>
+                                    <Path Data="M16.5,24.500009L19.5,24.500009 19.5,27.50001 16.5,27.50001z M10.5,24.500009L13.5,24.500009 13.5,27.50001 10.5,27.50001z M4.5000002,24.500009L7.5000002,24.500009 7.5000002,27.50001 4.5000002,27.50001z M22.5,19.500009L25.5,19.500009 25.5,22.500009 22.5,22.500009z M16.5,19.500009L19.5,19.500009 19.5,22.500009 16.5,22.500009z M10.5,19.500009L13.5,19.500009 13.5,22.500009 10.5,22.500009z M4.5000002,19.500009L7.5000002,19.500009 7.5000002,22.500009 4.5000002,22.500009z M22.5,14.500009L25.5,14.500009 25.5,17.500009 22.5,17.500009z M16.5,14.500009L19.5,14.500009 19.5,17.500009 16.5,17.500009z M10.5,14.500009L13.5,14.500009 13.5,17.500009 10.5,17.500009z M4.5000002,14.500009L7.5000002,14.500009 7.5000002,17.500009 4.5000002,17.500009z M2.0000001,12.000008L2.0000001,30.00001 28,30.00001 28,12.000008z M2.0000001,5.0000091L2.0000001,10.000007 28,10.000007 28,5.0000091 23.956969,5.0000091 23.956969,6.9310009C23.956969,7.4830005 23.509968,7.9310007 22.956969,7.9310007 22.403969,7.9310007 21.956969,7.4830005 21.956969,6.9310009L21.956969,5.0000091 7.956969,5.0000091 7.956969,6.9310009C7.956969,7.4830005 7.509969,7.9310007 6.956969,7.9310007 6.403969,7.9310007 5.956969,7.4830005 5.956969,6.9310009L5.956969,5.0000091z M6.956969,0C7.509969,0,7.956969,0.44799995,7.956969,1L7.956969,3.0000091 21.956969,3.0000091 21.956969,1C21.956969,0.44799995 22.403969,0 22.956969,0 23.509968,0 23.956969,0.44799995 23.956969,1L23.956969,3.0000091 30,3.0000091 30,32.00001 0,32.00001 0,3.0000091 5.956969,3.0000091 5.956969,1C5.956969,0.44799995,6.403969,0,6.956969,0z" Fill="#FF010101" WidthRequest="45" HeightRequest="45" Margin="25,10,0,0"></Path>
+                                </core:SfTextInputLayout.TrailingView>
+                            </core:SfTextInputLayout>
+                        </StackLayout>
+
+                        <picker:SfDatePicker x:Name="departureDatePicker" Mode="Dialog" />
+
+                    </StackLayout>
+
+                    <StackLayout Orientation="Vertical" Padding="0,15,0,0">
+                        <Label Text="Return date" TextColor="Gray"/>
+                        <StackLayout Orientation="Horizontal" Padding="0, 3, 0, 0">
+                            <core:SfTextInputLayout WidthRequest="300" ShowHint="False" HeightRequest="50" ContainerType="Outlined" ReserveSpaceForAssistiveLabels="False" TrailingViewPosition="Inside" ContainerBackground="Transparent" >
+                                <core:SfTextInputLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="ReturnDatePicker_OnPopUpOpened" />
+                                </core:SfTextInputLayout.GestureRecognizers>
+                                <Label x:Name="returnDateLabel" HeightRequest="{OnPlatform MacCatalyst=50}" VerticalTextAlignment="Center"/>
+                                <core:SfTextInputLayout.TrailingView>
+                                    <Path Data="M16.5,24.500009L19.5,24.500009 19.5,27.50001 16.5,27.50001z M10.5,24.500009L13.5,24.500009 13.5,27.50001 10.5,27.50001z M4.5000002,24.500009L7.5000002,24.500009 7.5000002,27.50001 4.5000002,27.50001z M22.5,19.500009L25.5,19.500009 25.5,22.500009 22.5,22.500009z M16.5,19.500009L19.5,19.500009 19.5,22.500009 16.5,22.500009z M10.5,19.500009L13.5,19.500009 13.5,22.500009 10.5,22.500009z M4.5000002,19.500009L7.5000002,19.500009 7.5000002,22.500009 4.5000002,22.500009z M22.5,14.500009L25.5,14.500009 25.5,17.500009 22.5,17.500009z M16.5,14.500009L19.5,14.500009 19.5,17.500009 16.5,17.500009z M10.5,14.500009L13.5,14.500009 13.5,17.500009 10.5,17.500009z M4.5000002,14.500009L7.5000002,14.500009 7.5000002,17.500009 4.5000002,17.500009z M2.0000001,12.000008L2.0000001,30.00001 28,30.00001 28,12.000008z M2.0000001,5.0000091L2.0000001,10.000007 28,10.000007 28,5.0000091 23.956969,5.0000091 23.956969,6.9310009C23.956969,7.4830005 23.509968,7.9310007 22.956969,7.9310007 22.403969,7.9310007 21.956969,7.4830005 21.956969,6.9310009L21.956969,5.0000091 7.956969,5.0000091 7.956969,6.9310009C7.956969,7.4830005 7.509969,7.9310007 6.956969,7.9310007 6.403969,7.9310007 5.956969,7.4830005 5.956969,6.9310009L5.956969,5.0000091z M6.956969,0C7.509969,0,7.956969,0.44799995,7.956969,1L7.956969,3.0000091 21.956969,3.0000091 21.956969,1C21.956969,0.44799995 22.403969,0 22.956969,0 23.509968,0 23.956969,0.44799995 23.956969,1L23.956969,3.0000091 30,3.0000091 30,32.00001 0,32.00001 0,3.0000091 5.956969,3.0000091 5.956969,1C5.956969,0.44799995,6.403969,0,6.956969,0z" Fill="#FF010101" WidthRequest="45" HeightRequest="45" Margin="25,10,0,0"></Path>
+                                </core:SfTextInputLayout.TrailingView>
+                            </core:SfTextInputLayout>
+                        </StackLayout>
+
+                        <picker:SfDatePicker x:Name="returnDatePicker" Mode="Dialog" />
+                    </StackLayout>
+                </StackLayout>
+
+                <Button Text="Search" Grid.Row="3" WidthRequest="150" CornerRadius="12" HorizontalOptions="Center" VerticalOptions="Center" BorderWidth="0" Margin="0,30,0,0" Clicked="SearchButton_Clicked" />
+            </Grid>
+        </Border>
+
+        <Grid x:Name="mobileGrid" IsVisible="False" HorizontalOptions="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.1*" />
+                <RowDefinition Height="0.8*" />
+                <RowDefinition Height="0.1*" />
+            </Grid.RowDefinitions>
+            <Label Text="International Flights" HorizontalOptions="Center" VerticalOptions="Center" Padding="5" FontAttributes="Bold" FontSize="18" />
+            <StackLayout Grid.Row="1" WidthRequest="300" >
+                <StackLayout  Orientation="Vertical" Padding="0,10,0,0">
+                    <Label Text="From" TextColor="Gray"/>
+                    <StackLayout Orientation="Horizontal" Padding="0, 3, 0, 0">
+                        <core:SfTextInputLayout WidthRequest="300" ShowHint="False" ContainerType="Outlined" ReserveSpaceForAssistiveLabels="False" TrailingViewPosition="Inside" ShowHelperText="False" ContainerBackground="Transparent" >
+                            <core:SfTextInputLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                            </core:SfTextInputLayout.GestureRecognizers>
+                            <Label x:Name="mobileFromLabel" Text="Chennai, India" VerticalTextAlignment="Center" />
+                            <core:SfTextInputLayout.TrailingView>
+                                <Label Text="&#xe76e;"
+                                            FontSize="20"
+                                            TextColor="{AppThemeBinding Light={StaticResource TextColourLight}, Dark={StaticResource TextColourAlt1}}"
+                                            FontFamily="MauiSampleFontIcon" 
+                                            HeightRequest="20"/>
+                            </core:SfTextInputLayout.TrailingView>
+                        </core:SfTextInputLayout>
+                    </StackLayout>
+                    <picker:SfPicker x:Name="mobileFromPicker" Mode="Dialog" SelectionChanged="FromPicker_SelectionChanged" OkButtonClicked="FromPicker_OkButtonClicked" CancelButtonClicked="FromPicker_CancelButtonClicked">
+                        <picker:SfPicker.ColumnHeaderView>
+                            <picker:PickerColumnHeaderView Height="40">
+                                <picker:PickerColumnHeaderView.TextStyle>
+                                    <picker:PickerTextStyle FontSize="16" TextColor="{AppThemeBinding Light={StaticResource TextColourLight}, Dark={StaticResource TextColour}}"/>
+                                </picker:PickerColumnHeaderView.TextStyle>
+                            </picker:PickerColumnHeaderView>
+                        </picker:SfPicker.ColumnHeaderView>
+                    </picker:SfPicker>
+                </StackLayout>
+
+                <StackLayout Orientation="Vertical" Padding="0,10,0,0">
+                    <Label Text="To" TextColor="Gray"/>
+                    <StackLayout Orientation="Horizontal" Padding="0, 3, 0, 0">
+                        <core:SfTextInputLayout WidthRequest="300" ShowHint="False" ContainerType="Outlined" ReserveSpaceForAssistiveLabels="False" TrailingViewPosition="Inside" ContainerBackground="Transparent" >
+                            <core:SfTextInputLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1" />
+                            </core:SfTextInputLayout.GestureRecognizers>
+                            <Label x:Name="mobileToLabel" Text="Boston, USA" VerticalTextAlignment="Center"/>
+                            <core:SfTextInputLayout.TrailingView>
+                                <Label Text="&#xe76e;"
+                                            FontSize="20"
+                                            TextColor="{AppThemeBinding Light={StaticResource TextColourLight}, Dark={StaticResource TextColourAlt1}}"
+                                            FontFamily="MauiSampleFontIcon" 
+                                            HeightRequest="20"/>
+                            </core:SfTextInputLayout.TrailingView>
+                        </core:SfTextInputLayout>
+                    </StackLayout>
+                    <picker:SfPicker x:Name="mobileToPicker" Mode="Dialog" SelectionChanged="ToPicker_SelectionChanged" OkButtonClicked="ToPicker_OkButtonClicked" CancelButtonClicked="ToPicker_CancelButtonClicked">
+
+                        <picker:SfPicker.ColumnHeaderView>
+                            <picker:PickerColumnHeaderView Height="40">
+                                <picker:PickerColumnHeaderView.TextStyle>
+                                    <picker:PickerTextStyle FontSize="16" TextColor="{AppThemeBinding Light={StaticResource TextColourLight}, Dark={StaticResource TextColour}}"/>
+                                </picker:PickerColumnHeaderView.TextStyle>
+                            </picker:PickerColumnHeaderView>
+                        </picker:SfPicker.ColumnHeaderView>
+                    </picker:SfPicker>
+                </StackLayout>
+
+                <StackLayout   Orientation="Vertical" Padding="0,10,0,0">
+                    <Label Text="Departure date" TextColor="Gray"/>
+                    <StackLayout Orientation="Horizontal" Padding="0, 3, 0, 0">
+                        <core:SfTextInputLayout WidthRequest="300" ShowHint="False" ContainerType="Outlined" ReserveSpaceForAssistiveLabels="False" TrailingViewPosition="Inside" ContainerBackground="Transparent" >
+                            <core:SfTextInputLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="DepartureDatePicker_OnPopUpOpened" />
+                            </core:SfTextInputLayout.GestureRecognizers>
+                            <Label x:Name="mobileDepartureDateLabel" VerticalTextAlignment="Center"/>
+                            <core:SfTextInputLayout.TrailingView>
+                                <Label Text="&#xe757;"
+                                            FontSize="20"
+                                            TextColor="{AppThemeBinding Light={StaticResource TextColourLight}, Dark={StaticResource TextColourAlt1}}"
+                                            FontFamily="MauiSampleFontIcon" 
+                                            HeightRequest="20"/>
+                            </core:SfTextInputLayout.TrailingView>
+                        </core:SfTextInputLayout>
+                    </StackLayout>
+
+                    <picker:SfDatePicker x:Name="mobileDepartureDatePicker" Mode="Dialog"/>
+                </StackLayout>
+
+                <StackLayout Orientation="Vertical" Padding="0,10,0,0">
+                    <Label Text="Return date" TextColor="Gray"/>
+                    <StackLayout Orientation="Horizontal" Padding="0, 3, 0, 0">
+                        <core:SfTextInputLayout WidthRequest="300" ShowHint="False" ContainerType="Outlined" ReserveSpaceForAssistiveLabels="False" TrailingViewPosition="Inside" ContainerBackground="Transparent" >
+                            <core:SfTextInputLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="ReturnDatePicker_OnPopUpOpened" />
+                            </core:SfTextInputLayout.GestureRecognizers>
+                            <Label x:Name="mobileReturnDateLabel" VerticalTextAlignment="Center"/>
+                            <core:SfTextInputLayout.TrailingView>
+                                <Label Text="&#xe757;"
+                                            FontSize="20"
+                                            TextColor="{AppThemeBinding Light={StaticResource TextColourLight}, Dark={StaticResource TextColourAlt1}}"
+                                            FontFamily="MauiSampleFontIcon" 
+                                            HeightRequest="20"/>
+                            </core:SfTextInputLayout.TrailingView>
+                        </core:SfTextInputLayout>
+                    </StackLayout>
+
+                    <picker:SfDatePicker x:Name="mobileReturnDatePicker" Mode="Dialog" />
+                </StackLayout>
+            </StackLayout>
+
+            <Button Text="Search" Grid.Row="2" WidthRequest="250" CornerRadius="12" HorizontalOptions="Center" VerticalOptions="End" HeightRequest="50" BorderWidth="0" Margin="0,10,0,10" Clicked="SearchButton_Clicked"/>
+            <popUp:SfPopup Grid.Row="0" Grid.RowSpan="3" WidthRequest="330" IsVisible="false" x:Name="popup" FooterHeight="100" ShowHeader="False" ShowFooter="True" HeightRequest="200">
+                <popUp:SfPopup.PopupStyle>
+                    <popUp:PopupStyle CornerRadius="15" MessageFontSize="15" />
+                </popUp:SfPopup.PopupStyle>
+            </popUp:SfPopup>
+        </Grid>
+    </Grid>
+</ContentPage>
