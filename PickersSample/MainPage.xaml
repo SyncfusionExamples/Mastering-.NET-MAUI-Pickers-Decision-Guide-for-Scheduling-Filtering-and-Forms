@@ -8,7 +8,16 @@
              Shell.NavBarIsVisible="False">
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="16" WidthRequest="500">
+        <VerticalStackLayout Padding="20" Spacing="16">
+            <VerticalStackLayout.WidthRequest>
+                <OnPlatform x:TypeArguments="x:Double">
+                    <On Platform="Android" Value="350" />
+                    <On Platform="iOS" Value="350" />
+                    <On Platform="WinUI" Value="500" />
+                    <On Platform="MacCatalyst" Value="500" />
+                    <On Platform="Tizen" Value="500" />
+                </OnPlatform>
+            </VerticalStackLayout.WidthRequest>
             <Label Text="Syncfusion Pickers in .NET MAUI"
                    FontSize="24"
                    FontAttributes="Bold" />
