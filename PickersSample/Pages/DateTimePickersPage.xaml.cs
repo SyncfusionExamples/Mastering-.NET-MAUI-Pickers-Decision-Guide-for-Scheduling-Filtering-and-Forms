@@ -3,8 +3,14 @@ using Syncfusion.Maui.Picker;
 
 namespace PickersSample.Pages
 {
+    /// <summary>
+    /// Sample page demonstrating the Syncfusion SfDateTimePicker with a reminder workflow.
+    /// </summary>
     public partial class DateTimePickersPage : ContentPage
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DateTimePickersPage"/> class and configures default values.
+        /// </summary>
         public DateTimePickersPage()
         {
             InitializeComponent();
@@ -20,6 +26,9 @@ namespace PickersSample.Pages
 #endif
         }
 
+        /// <summary>
+        /// Opens the date-time picker with the current text parsed as initial selection.
+        /// </summary>
         private void OnDateTimeFieldTapped(object sender, EventArgs e)
         {
             this.reminderDateTimePicker.SelectedDate = DateTime.TryParseExact(dateTimeText.Text, "dd-MM-yyyy h:mm tt", CultureInfo.InvariantCulture, DateTimeStyles.None, out var dt)
@@ -28,6 +37,9 @@ namespace PickersSample.Pages
             this.reminderDateTimePicker.IsOpen = true;
         }
 
+        /// <summary>
+        /// Applies the chosen date-time and closes the popup.
+        /// </summary>
         private void OnDateTimePickerOkButtonClicked(object sender, EventArgs e)
         {
             if (sender is SfDateTimePicker picker && picker.SelectedDate != null)
@@ -37,6 +49,9 @@ namespace PickersSample.Pages
             this.reminderDateTimePicker.IsOpen = false;
         }
 
+        /// <summary>
+        /// Closes the picker without applying changes.
+        /// </summary>
         private void OnDateTimePickerCancelButtonClicked(object sender, EventArgs e)
         {
             if (sender is SfDateTimePicker p)
@@ -45,11 +60,14 @@ namespace PickersSample.Pages
             }
         }
 
+        /// <summary>
+        /// Displays a confirmation of the reminder details.
+        /// </summary>
         private async void OnSaveClicked(object sender, EventArgs e)
         {
             var title = titleEntry.Text;
             var dateTimeString = dateTimeText.Text;
-            await DisplayAlert("Reminder", $"Title: {title}\nDateTime: {dateTimeString}", "OK");
+            await DisplayAlertAsync("Reminder", $"Title: {title}\nDateTime: {dateTimeString}", "OK");
         }
     }
 }

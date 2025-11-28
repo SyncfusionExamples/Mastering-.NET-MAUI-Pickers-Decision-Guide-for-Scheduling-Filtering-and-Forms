@@ -3,6 +3,9 @@ using System.Globalization;
 
 namespace PickersSample.Pages
 {
+    /// <summary>
+    /// Travel booking sample that uses Syncfusion SfPicker and SfDatePicker for cascading country/city selection and dates.
+    /// </summary>
     public partial class PickerPage : ContentPage
     {
         private DateTime from;
@@ -178,7 +181,7 @@ namespace PickersSample.Pages
                 to = from;
                 mobileReturnDateLabel.Text = to.Day.ToString() + " " + CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(to.Month).ToString() + "," + " " + to.Year.ToString();
             }
-            
+
             mobileDepartureDatePicker.IsOpen = false;
 #else
             if (departureDatePicker.SelectedDate != null)

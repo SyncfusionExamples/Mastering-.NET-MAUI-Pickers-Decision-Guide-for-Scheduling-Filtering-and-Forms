@@ -6,17 +6,23 @@ using System.Globalization;
 
 namespace PickersSample.Pages
 {
+    /// <summary>
+    /// Page that demonstrates task management with Syncfusion SfDatePicker, including adding tasks and editing due dates.
+    /// </summary>
     public partial class DatePickerPage : ContentPage
     {
         private ToDoDetails? toDoDetails;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DatePickerPage"/> class and configures picker headers/footers per platform.
+        /// </summary>
         public DatePickerPage()
         {
             InitializeComponent();
 #if ANDROID || IOS
-        this.datePicker1.HeaderView.Height = 50;
-        this.datePicker1.HeaderView.Text = "Select the Date";
+            this.datePicker1.HeaderView.Height = 50;
+            this.datePicker1.HeaderView.Text = "Select the Date";
 
-        this.datePicker1.FooterView.Height = 50;
+            this.datePicker1.FooterView.Height = 50;
 #else
             this.datePicker.HeaderView.Height = 50;
             this.datePicker.HeaderView.Text = "Select the Date";
@@ -25,27 +31,33 @@ namespace PickersSample.Pages
 #endif
         }
 
+        /// <summary>
+        /// Handles the floating add button tap and opens the custom popup to create a new task.
+        /// </summary>
         private void OnTapGestureTapped(object sender, EventArgs e)
         {
 #if ANDROID || IOS
-        this.popup1.Reset();
-        this.popup1.IsOpen = true;
+            this.popup1.Reset();
+            this.popup1.IsOpen = true;
 #else
             this.popup.Reset();
             this.popup.IsOpen = true;
 #endif
         }
 
+        /// <summary>
+        /// Handles tapping an item and opens SfDatePicker to edit the task due date.
+        /// </summary>
         private void OnItemTapGestureTapped(object sender, EventArgs e)
         {
 #if ANDROID || IOS
-        if (sender is Grid grid && grid.BindingContext != null && grid.BindingContext is ToDoDetails details)
-        {
-            this.datePicker1.SelectedDate = details.Date;
-            this.toDoDetails = details;
-        }
+            if (sender is Grid grid && grid.BindingContext != null && grid.BindingContext is ToDoDetails details)
+            {
+                this.datePicker1.SelectedDate = details.Date;
+                this.toDoDetails = details;
+            }
 
-        this.datePicker1.IsOpen = true;
+            this.datePicker1.IsOpen = true;
 #else
             if (sender is Grid grid && grid.BindingContext != null && grid.BindingContext is ToDoDetails details)
             {
@@ -57,6 +69,9 @@ namespace PickersSample.Pages
 #endif
         }
 
+        /// <summary>
+        /// Applies the selected date to the tapped task and closes the picker.
+        /// </summary>
         private void OnDatePickerOkButtonClicked(object sender, EventArgs e)
         {
             if (sender is Syncfusion.Maui.Picker.SfDatePicker picker && this.toDoDetails != null && picker.SelectedDate?.Date != null)
@@ -70,17 +85,23 @@ namespace PickersSample.Pages
             }
 
 #if ANDROID || IOS
-        this.datePicker1.IsOpen = false;
+            this.datePicker1.IsOpen = false;
 #else
             this.datePicker.IsOpen = false;
 #endif
         }
 
+        /// <summary>
+        /// Resets the current edit context when the picker closes.
+        /// </summary>
         private void OnDatePickerClosed(object sender, EventArgs e)
         {
             this.toDoDetails = null;
         }
 
+        /// <summary>
+        /// Cancels editing and closes the picker.
+        /// </summary>
         private void OnDatePickerCancelButtonClicked(object sender, EventArgs e)
         {
             if (sender is Syncfusion.Maui.Picker.SfDatePicker picker)
@@ -90,6 +111,9 @@ namespace PickersSample.Pages
             }
         }
 
+        /// <summary>
+        /// Adds a newly created item from the popup to the collection.
+        /// </summary>
         private void OnPopupItemCreated(object sender, EventArgs e)
         {
             if (this.BindingContext != null && this.BindingContext is DatePickerCustomizationViewModel bindingContext && sender is ToDoDetails details)
@@ -99,10 +123,16 @@ namespace PickersSample.Pages
         }
     }
 
+    /// <summary>
+    /// ViewModel providing data for the DatePickerPage tasks list.
+    /// </summary>
     public class DatePickerCustomizationViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<ToDoDetails> dataSource;
 
+        /// <summary>
+        /// Gets or sets the task items displayed in the page.
+        /// </summary>
         public ObservableCollection<ToDoDetails> DataSource
         {
             get
@@ -121,6 +151,9 @@ namespace PickersSample.Pages
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        /// <summary>
+        /// Initializes the ViewModel with sample task data.
+        /// </summary>
         public DatePickerCustomizationViewModel()
         {
             this.dataSource = new ObservableCollection<ToDoDetails>()
@@ -132,13 +165,20 @@ namespace PickersSample.Pages
         };
         }
 
+        /// <inheritdoc/>
         public event PropertyChangedEventHandler? PropertyChanged;
     }
 
+    /// <summary>
+    /// Model representing a task item with subject and due date information.
+    /// </summary>
     public class ToDoDetails : INotifyPropertyChanged
     {
         private string subject = string.Empty;
 
+        /// <summary>
+        /// Gets or sets the subject/title of the task.
+        /// </summary>
         public string Subject
         {
             get
@@ -154,6 +194,9 @@ namespace PickersSample.Pages
 
         private DateTime date = DateTime.Now.Date;
 
+        /// <summary>
+        /// Gets or sets the due date of the task and updates DateString accordingly.
+        /// </summary>
         public DateTime Date
         {
             get
@@ -170,6 +213,9 @@ namespace PickersSample.Pages
 
         private string dateString = "Due today";
 
+        /// <summary>
+        /// Gets or sets a formatted string representing the due date.
+        /// </summary>
         public string DateString
         {
             get
@@ -188,13 +234,20 @@ namespace PickersSample.Pages
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        /// <inheritdoc/>
         public event PropertyChangedEventHandler? PropertyChanged;
     }
 
+    /// <summary>
+    /// Converts a DateTime to a themed Color indicating status (today, past, future).
+    /// </summary>
     public class DateTimeToColorConverter : IValueConverter
     {
         private bool isLightTheme = Application.Current?.RequestedTheme == AppTheme.Light;
 
+        /// <summary>
+        /// Converts DateTime to a status color using the current theme.
+        /// </summary>
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value != null && value is DateTime date)
@@ -214,18 +267,27 @@ namespace PickersSample.Pages
             return isLightTheme ? Color.FromArgb("#49454F") : Color.FromArgb("#CAC4D0");
         }
 
+        /// <summary>
+        /// Not used. Conversion back is not supported.
+        /// </summary>
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             return string.Empty;
         }
     }
 
+    /// <summary>
+    /// Custom popup used to create a new task with title and date using SfDatePicker.
+    /// </summary>
     public class CustomPopUp : SfPopup
     {
         private Syncfusion.Maui.Picker.SfDatePicker picker;
         Entry entry;
         private SfTextInputLayout textInput;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CustomPopUp"/> class and composes its UI.
+        /// </summary>
         public CustomPopUp()
         {
             this.picker = new Syncfusion.Maui.Picker.SfDatePicker();
@@ -277,12 +339,18 @@ namespace PickersSample.Pages
             this.PopupStyle.CornerRadius = new CornerRadius(5);
         }
 
+        /// <summary>
+        /// Resets popup fields and closes the popup when cancel is clicked.
+        /// </summary>
         private void OnPickerCancelButtonClicked(object? sender, EventArgs e)
         {
             this.Reset();
             this.IsOpen = false;
         }
 
+        /// <summary>
+        /// Raises OnCreated with the new task when OK is clicked and closes the popup.
+        /// </summary>
         private void OnPickerOkButtonClicked(object? sender, EventArgs e)
         {
             if (picker.SelectedDate != null)
@@ -292,6 +360,9 @@ namespace PickersSample.Pages
             this.IsOpen = false;
         }
 
+        /// <summary>
+        /// Clears the editor and resets the date selection to today.
+        /// </summary>
         public void Reset()
         {
             if (this.picker != null)
@@ -305,6 +376,9 @@ namespace PickersSample.Pages
             }
         }
 
+        /// <summary>
+        /// Occurs when a new task is created from the popup.
+        /// </summary>
         public event EventHandler? OnCreated;
     }
 }

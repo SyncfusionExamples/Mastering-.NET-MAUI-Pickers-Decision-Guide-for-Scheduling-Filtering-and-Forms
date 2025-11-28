@@ -7,6 +7,9 @@ using Syncfusion.Maui.Popup;
 
 namespace PickersSample.Pages
 {
+    /// <summary>
+    /// Sample page demonstrating alarm management using Syncfusion SfTimePicker and a custom popup.
+    /// </summary>
     public partial class TimePickerPage : ContentPage
     {
 
@@ -16,6 +19,9 @@ namespace PickersSample.Pages
         private bool isLightTheme = Application.Current?.RequestedTheme == AppTheme.Light;
 
         private AlarmDetails? alarmDetails;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TimePickerPage"/> class and configures editor headers.
+        /// </summary>
         public TimePickerPage()
         {
             InitializeComponent();
@@ -34,6 +40,9 @@ namespace PickersSample.Pages
 #endif
         }
 
+        /// <summary>
+        /// Opens the time editor for the tapped alarm when the alarm is enabled.
+        /// </summary>
         private void OnAlarmTapped(object sender, EventArgs e)
         {
 #if ANDROID || IOS
@@ -59,6 +68,9 @@ namespace PickersSample.Pages
 #endif
         }
 
+        /// <summary>
+        /// Saves the edited time back to the bound AlarmDetails and closes the editor.
+        /// </summary>
         private void AlarmEditPicker_OkButtonClicked(object? sender, EventArgs e)
         {
             if (sender is Syncfusion.Maui.Picker.SfTimePicker picker && this.alarmDetails != null)
@@ -78,6 +90,9 @@ namespace PickersSample.Pages
 #endif
         }
 
+        /// <summary>
+        /// Cancels editing and closes the editor.
+        /// </summary>
         private void alarmEditPicker_CancelButtonClicked(object sender, EventArgs e)
         {
 #if ANDROID || IOS
@@ -87,6 +102,9 @@ namespace PickersSample.Pages
 #endif
         }
 
+        /// <summary>
+        /// Applies theme-aware text colors when the alarm switch toggles.
+        /// </summary>
         private void alarmSwitch_Toggled(object sender, SwitchStateChangedEventArgs e)
         {
             if (sender is SfSwitch toggleSwitch && toggleSwitch.BindingContext != null && toggleSwitch.BindingContext is AlarmDetails alarmDetails && e.NewValue.HasValue)
@@ -105,6 +123,9 @@ namespace PickersSample.Pages
 
         }
 
+        /// <summary>
+        /// Opens the popup to add a new alarm.
+        /// </summary>
         private void OnAddAlarmTapped(object sender, EventArgs e)
         {
 #if ANDROID || IOS
@@ -114,6 +135,9 @@ namespace PickersSample.Pages
 #endif
         }
 
+        /// <summary>
+        /// Adds the created alarm from the popup to the bound collection.
+        /// </summary>
         private void alarmPopup_OnCreated(object sender, EventArgs e)
         {
             if (this.BindingContext != null && this.BindingContext is TimePickerCustomizationViewModel bindingContext && sender is AlarmDetails details)
