@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="PickersSample.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:PickersSample"
+    xmlns:pages="clr-namespace:PickersSample.Pages"
+    Title="PickersSample">
+
+    <FlyoutItem Title="Home" Route="MainPage">
+        <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Date Picker" Route="DatePickerPage">
+        <ShellContent ContentTemplate="{DataTemplate pages:DatePickerPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Time Picker" Route="TimePickerPage">
+        <ShellContent ContentTemplate="{DataTemplate pages:TimePickerPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Date Time Picker" Route="DateTimePickersPage">
+        <ShellContent ContentTemplate="{DataTemplate pages:DateTimePickersPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Picker" Route="PickerPage">
+        <ShellContent ContentTemplate="{DataTemplate pages:PickerPage}" />
+    </FlyoutItem>
+
+</Shell>
