@@ -5,9 +5,7 @@
              xmlns:popUp="clr-namespace:Syncfusion.Maui.Popup;assembly=Syncfusion.Maui.Popup"
              xmlns:picker="clr-namespace:Syncfusion.Maui.Picker;assembly=Syncfusion.Maui.Picker"
              xmlns:editors="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
-             x:Class="PickerDecisionGuideSample.Pages.PickerPage"
-             xmlns:vm="clr-namespace:PickerDecisionGuideSample.Pages"
-             x:DataType="vm:PickerPage">
+             x:Class="PickerDecisionGuideSample.Pages.PickerPage">
     
     <Grid Padding="10">
         <Border x:Name="frame" IsVisible="False" Margin="0" Padding="0" BackgroundColor="Transparent" Stroke="{AppThemeBinding Light={StaticResource BorderLight}, Dark={StaticResource Border}}" HeightRequest="600" WidthRequest="370" VerticalOptions="Center" HorizontalOptions="Center">

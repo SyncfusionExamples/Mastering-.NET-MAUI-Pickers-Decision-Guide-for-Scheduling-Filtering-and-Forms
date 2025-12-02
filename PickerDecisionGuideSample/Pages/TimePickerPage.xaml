@@ -8,14 +8,13 @@
              xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
              x:DataType="vm:TimePickerCustomizationViewModel"
              Background="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" Padding="{OnPlatform WinUI=-10, MacCatalyst=-10, Default=0}"
-             xmlns:vm="clr-namespace:PickerDecisionGuideSample.Pages">
+             xmlns:vm="clr-namespace:PickerDecisionGuideSample.ViewModels">
 
 
     <ContentPage.Resources>
         <vm:TimeSpanConverter x:Key="TimeSpanConverter"/>
         <vm:AlarmTimer x:Key="AlarmTimer"/>
 
-        <!-- Style to show a tick icon on SfSwitch when it is On -->
         <Style x:Key="AlarmSwitchStyle" TargetType="buttons:SfSwitch">
             <Setter Property="VisualStateManager.VisualStateGroups">
                 <Setter.Value>
@@ -36,7 +35,6 @@
                             </VisualState>
                             <VisualState x:Name="Off">
                                 <VisualState.Setters>
-                                    <!-- No icon on Off state -->
                                     <Setter Property="SwitchSettings">
                                         <Setter.Value>
                                             <buttons:SwitchSettings />

@@ -4,8 +4,7 @@
              xmlns:picker="clr-namespace:Syncfusion.Maui.Picker;assembly=Syncfusion.Maui.Picker"
              xmlns:core="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
              xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
-             x:Class="PickerDecisionGuideSample.Pages.DateTimePickersPage"
-             Title="Date Time Pickers">
+             x:Class="PickerDecisionGuideSample.Pages.DateTimePickersPage">
 
     <Grid>
         <Grid.RowDefinitions>

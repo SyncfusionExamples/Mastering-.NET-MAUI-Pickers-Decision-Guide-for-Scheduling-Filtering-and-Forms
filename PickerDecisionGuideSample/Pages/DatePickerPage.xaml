@@ -7,7 +7,7 @@
              xmlns:picker="clr-namespace:Syncfusion.Maui.Picker;assembly=Syncfusion.Maui.Picker"
              xmlns:editors="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
              Background="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" Padding="{OnPlatform WinUI=-10, MacCatalyst=-10, Default=0}"
-             xmlns:vm="clr-namespace:PickerDecisionGuideSample.Pages"
+             xmlns:vm="clr-namespace:PickerDecisionGuideSample.ViewModels"
              x:DataType="vm:DatePickerCustomizationViewModel">
 
     <ContentPage.Resources>

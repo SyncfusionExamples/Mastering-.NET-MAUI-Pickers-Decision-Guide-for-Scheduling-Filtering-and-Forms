@@ -3,9 +3,6 @@ using System.Globalization;
 
 namespace PickerDecisionGuideSample.Pages
 {
-    /// <summary>
-    /// Travel booking sample that uses Syncfusion SfPicker and SfDatePicker for cascading country/city selection and dates.
-    /// </summary>
     public partial class PickerPage : ContentPage
     {
         private DateTime from;
@@ -129,11 +126,6 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
-        /// <summary>
-        /// Method to handle the PopUpOpened event of the departure date picker.
-        /// </summary>
-        /// <param name="sender">The sender object.</param>
-        /// <param name="e">The event args.</param>
         private void DepartureDatePicker_OnPopUpOpened(object? sender, EventArgs e)
         {
 #if ANDROID || IOS
@@ -145,11 +137,6 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
-        /// <summary>
-        /// Method to handle the PopUpOpened event of the return date picker.
-        /// </summary>
-        /// <param name="sender">The sender object.</param>
-        /// <param name="e">The event args.</param>
         private void ReturnDatePicker_OnPopUpOpened(object? sender, EventArgs e)
         {
 #if ANDROID || IOS
@@ -163,11 +150,6 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
-        /// <summary>
-        /// Method to handle the ok button clicked event of the departure date picker.
-        /// </summary>
-        /// <param name="sender">The sender object.</param>
-        /// <param name="e">The event args.</param>
         private void DepartureDatePicker_OkButtonClicked(object? sender, EventArgs e)
         {
 #if ANDROID || IOS
@@ -199,11 +181,6 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
-        /// <summary>
-        /// Method to handle the ok button clicked event of the return date picker.
-        /// </summary>
-        /// <param name="sender">The sender object.</param>
-        /// <param name="e">The event args.</param>
         private void ReturnDatePicker_OkButtonClicked(object? sender, EventArgs e)
         {
 #if ANDROID || IOS
@@ -223,11 +200,6 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
-        /// <summary>
-        /// Method to handle the Cancel button clicked event of the departure date picker.
-        /// </summary>
-        /// <param name="sender">The sender object.</param>
-        /// <param name="e">The event args.</param>
         private void DepartureDatePicker_CancelButtonClicked(object? sender, EventArgs e)
         {
 #if ANDROID || IOS
@@ -237,11 +209,6 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
-        /// <summary>
-        /// Method to handle the Cancel button clicked event of the return date picker.
-        /// </summary>
-        /// <param name="sender">The sender object.</param>
-        /// <param name="e">The event args.</param>
         private void ReturnDatePicker_CancelButtonClicked(object? sender, EventArgs e)
         {
 #if ANDROID || IOS
@@ -470,11 +437,6 @@ namespace PickerDecisionGuideSample.Pages
             return new List<string>();
         }
 
-        /// <summary>
-        /// Method to get the dynamic color.
-        /// </summary>
-        /// <param name="resourceName">The resource name.</param>
-        /// <returns>The color.</returns>
         private Color GetDynamicColor(string? resourceName = null)
         {
             if (resourceName != null && App.Current != null && App.Current.Resources.TryGetValue(resourceName, out var colorValue) && colorValue is Color color)
@@ -496,10 +458,6 @@ namespace PickerDecisionGuideSample.Pages
             return Colors.Transparent;
         }
 
-        /// <summary>
-        /// Method to get the Ok button style.
-        /// </summary>
-        /// <returns>The button style.</returns>
         private Style GetOkButtonStyle()
         {
             return new Style(typeof(Button))
@@ -516,11 +474,6 @@ namespace PickerDecisionGuideSample.Pages
             };
         }
 
-        /// <summary>
-        /// Method to get the footer template.
-        /// </summary>
-        /// <param name="popup">The pop up.</param>
-        /// <returns>The data template.</returns>
         private DataTemplate GetFooterTemplate(SfPopup popup)
         {
             var footerTemplate = new DataTemplate(() =>
@@ -556,11 +509,6 @@ namespace PickerDecisionGuideSample.Pages
             return footerTemplate;
         }
 
-        /// <summary>
-        /// Method to get the content template.
-        /// </summary>
-        /// <param name="popup">The pop up.</param>
-        /// <returns>The data template.</returns>
         private DataTemplate GetContentTemplate(SfPopup popup)
         {
             var footerTemplate = new DataTemplate(() =>
@@ -600,11 +548,6 @@ namespace PickerDecisionGuideSample.Pages
             return footerTemplate;
         }
 
-        /// <summary>
-        /// Method to handle the search button clicked event.
-        /// </summary>
-        /// <param name="sender">The sender object.</param>
-        /// <param name="e">The event args.</param>
         private void SearchButton_Clicked(object sender, EventArgs e)
         {
             if (this.popup == null)
