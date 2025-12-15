@@ -1,4 +1,4 @@
-﻿using Syncfusion.Maui.Core;
+using Syncfusion.Maui.Core;
 using Syncfusion.Maui.Popup;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -6,14 +6,26 @@ using System.Globalization;
 
 namespace PickerDecisionGuideSample.ViewModels
 {
+    /// <summary>
+    /// ViewModel that exposes alarm data and notifies changes for TimePicker samples.
+    /// </summary>
     public class TimePickerCustomizationViewModel : INotifyPropertyChanged
     {
+        /// <summary>
+        /// Indicates whether the current app theme is light.
+        /// </summary>
         private bool isLightTheme = Application.Current?.RequestedTheme == AppTheme.Light;
 
         private ObservableCollection<AlarmDetails> alarmCollection;
 
+        /// <summary>
+        /// Occurs when a property value changes.
+        /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        /// <summary>
+        /// Gets or sets the list of alarms displayed in the UI.
+        /// </summary>
         public ObservableCollection<AlarmDetails> AlarmCollection
         {
             get
@@ -27,6 +39,9 @@ namespace PickerDecisionGuideSample.ViewModels
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the TimePickerCustomizationViewModel with sample alarms.
+        /// </summary>
         public TimePickerCustomizationViewModel()
         {
             this.alarmCollection = new ObservableCollection<AlarmDetails>()
@@ -37,14 +52,29 @@ namespace PickerDecisionGuideSample.ViewModels
             };
         }
 
+        /// <summary>
+        /// Raises the PropertyChanged event for the specified property.
+        /// </summary>
+        /// <param name="propertyName">The name of the property that changed.</param>
         private void RaisePropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 
+    /// <summary>
+    /// Converts a TimeSpan to a human-readable countdown message until the alarm time.
+    /// </summary>
     public class AlarmTimer : IValueConverter
     {
+        /// <summary>
+        /// Converts the alarm time to a relative text such as "Alarm in X hours Y minutes".
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        /// <param name="targetType">The target type.</param>
+        /// <param name="parameter">Optional parameter.</param>
+        /// <param name="culture">Culture info.</param>
+        /// <returns>A formatted countdown string, or empty string.</returns>
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value is TimeSpan timeSpan)
@@ -65,12 +95,19 @@ namespace PickerDecisionGuideSample.ViewModels
             return string.Empty;
         }
 
+        /// <summary>
+        /// ConvertBack is not used for this converter.
+        /// </summary>
+        /// <returns>Always returns an empty string.</returns>
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             return string.Empty;
         }
     }
 
+    /// <summary>
+    /// Model describing an alarm entry with time, message, and visual state.
+    /// </summary>
     public class AlarmDetails : INotifyPropertyChanged
     {
         private TimeSpan alarmTime;
@@ -81,6 +118,9 @@ namespace PickerDecisionGuideSample.ViewModels
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        /// <summary>
+        /// Gets or sets the alarm time of day.
+        /// </summary>
         public TimeSpan AlarmTime
         {
             get
@@ -94,6 +134,9 @@ namespace PickerDecisionGuideSample.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the alarm message.
+        /// </summary>
         public string AlarmMessage
         {
             get
@@ -107,6 +150,9 @@ namespace PickerDecisionGuideSample.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the alarm is enabled.
+        /// </summary>
         public bool IsAlarmEnabled
         {
             get
@@ -120,6 +166,9 @@ namespace PickerDecisionGuideSample.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the primary text color for the alarm item.
+        /// </summary>
         public Color AlarmTextColor
         {
             get
@@ -133,6 +182,9 @@ namespace PickerDecisionGuideSample.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the secondary text color for the alarm item.
+        /// </summary>
         public Color AlarmSecondaryTextColor
         {
             get
@@ -146,20 +198,45 @@ namespace PickerDecisionGuideSample.ViewModels
             }
         }
 
-
+        /// <summary>
+        /// Raises the PropertyChanged event for the specified property.
+        /// </summary>
+        /// <param name="propertyName">The name of the property that changed.</param>
         private void RaisePropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 
+    /// <summary>
+    /// Popup for creating a new alarm with time and message inputs.
+    /// </summary>
     public class AlarmPopup : SfPopup
     {
+        /// <summary>
+        /// The internal time picker control hosted in the popup.
+        /// </summary>
         private Syncfusion.Maui.Picker.SfTimePicker alarmTimePicker;
+
+        /// <summary>
+        /// Entry used to capture the alarm message text.
+        /// </summary>
         private Entry alarmMessageEntry;
+
+        /// <summary>
+        /// Text input layout that wraps the alarm message entry.
+        /// </summary>
         private SfTextInputLayout alarmTextInput;
 
+
+        /// <summary>
+        /// Raised when a new alarm is created from the popup.
+        /// </summary>
         public event EventHandler? OnCreated;
+
+        /// <summary>
+        /// Initializes the popup UI and wires up TimePicker events.
+        /// </summary>
         public AlarmPopup()
         {
             this.alarmTimePicker = new Syncfusion.Maui.Picker.SfTimePicker();
@@ -214,12 +291,22 @@ namespace PickerDecisionGuideSample.ViewModels
             this.PopupStyle.CornerRadius = new CornerRadius(5);
         }
 
+        /// <summary>
+        /// Handles the Cancel action by resetting fields and closing the popup.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">Event data.</param>
         private void AlarmTimePicker_CancelButtonClicked(object? sender, EventArgs e)
         {
             this.Reset();
             this.IsOpen = false;
         }
 
+        /// <summary>
+        /// Handles the OK action by raising OnCreated with the new alarm and closing the popup.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">Event data.</param>
         private void AlarmTimePicker_OkButtonClicked(object? sender, EventArgs e)
         {
             if (this.alarmTimePicker.SelectedTime != null)
@@ -231,6 +318,9 @@ namespace PickerDecisionGuideSample.ViewModels
             this.Reset();
         }
 
+        /// <summary>
+        /// Resets the popup controls to their default values.
+        /// </summary>
         public void Reset()
         {
             this.alarmTimePicker.SelectedTime = DateTime.Now.TimeOfDay;
@@ -239,8 +329,19 @@ namespace PickerDecisionGuideSample.ViewModels
         }
     }
 
+    /// <summary>
+    /// Converts a TimeSpan to 12-hour format text with AM/PM.
+    /// </summary>
     public class TimeSpanConverter : IValueConverter
     {
+        /// <summary>
+        /// Converts a TimeSpan to formatted string such as "h:mm AM" or parts based on parameter.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        /// <param name="targetType">The target type.</param>
+        /// <param name="parameter">If true, returns time part; if false, returns AM/PM; otherwise full string.</param>
+        /// <param name="culture">Culture info.</param>
+        /// <returns>A formatted time string, or empty string.</returns>
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value is TimeSpan timeSpan)
@@ -275,6 +376,10 @@ namespace PickerDecisionGuideSample.ViewModels
             return string.Empty;
         }
 
+        /// <summary>
+        /// ConvertBack is not used for this converter.
+        /// </summary>
+        /// <returns>Always returns an empty string.</returns>
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             return string.Empty;

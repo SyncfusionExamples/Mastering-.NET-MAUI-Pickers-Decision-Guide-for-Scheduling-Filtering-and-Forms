@@ -1,4 +1,4 @@
-﻿using Syncfusion.Maui.Core;
+using Syncfusion.Maui.Core;
 using Syncfusion.Maui.Popup;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -6,10 +6,19 @@ using System.Globalization;
 
 namespace PickerDecisionGuideSample.ViewModels
 {
+    /// <summary>
+    /// ViewModel that provides the data source and change notification for DatePicker samples.
+    /// </summary>
     public class DatePickerCustomizationViewModel : INotifyPropertyChanged
     {
+        /// <summary>
+        /// Backing field for the DataSource property.
+        /// </summary>
         private ObservableCollection<ToDoDetails> dataSource;
 
+        /// <summary>
+        /// Gets or sets the list of to-do items bound to the UI.
+        /// </summary>
         public ObservableCollection<ToDoDetails> DataSource
         {
             get
@@ -23,30 +32,46 @@ namespace PickerDecisionGuideSample.ViewModels
             }
         }
 
+        /// <summary>
+        /// Raises the PropertyChanged event for the given property name.
+        /// </summary>
+        /// <param name="propertyName">The name of the property that changed.</param>
         private void RaisePropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        /// <summary>
+        /// Initializes a new instance of the DatePickerCustomizationViewModel with sample data.
+        /// </summary>
         public DatePickerCustomizationViewModel()
         {
             this.dataSource = new ObservableCollection<ToDoDetails>()
-        {
-            new ToDoDetails() {Subject = "Get quote from travel agent", Date= DateTime.Now.Date},
-            new ToDoDetails() {Subject = "Book flight ticket", Date= DateTime.Now.Date.AddDays(2)},
-            new ToDoDetails() {Subject = "Buy travel guide book", Date= DateTime.Now.Date},
-            new ToDoDetails() {Subject = "Register for sky diving", Date= DateTime.Now.Date.AddDays(8)},
-        };
+            {
+                new ToDoDetails() {Subject = "Get quote from travel agent", Date= DateTime.Now.Date},
+                new ToDoDetails() {Subject = "Book flight ticket", Date= DateTime.Now.Date.AddDays(2)},
+                new ToDoDetails() {Subject = "Buy travel guide book", Date= DateTime.Now.Date},
+                new ToDoDetails() {Subject = "Register for sky diving", Date= DateTime.Now.Date.AddDays(8)},
+            };
         }
 
         /// <inheritdoc/>
+        /// <summary>
+        /// Occurs when a property value changes.
+        /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
     }
 
+    /// <summary>
+    /// Model representing a to-do item with a subject and due date.
+    /// </summary>
     public class ToDoDetails : INotifyPropertyChanged
     {
         private string subject = string.Empty;
 
+        /// <summary>
+        /// Gets or sets the subject or title of the to-do item.
+        /// </summary>
         public string Subject
         {
             get
@@ -62,6 +87,9 @@ namespace PickerDecisionGuideSample.ViewModels
 
         private DateTime date = DateTime.Now.Date;
 
+        /// <summary>
+        /// Gets or sets the due date of the to-do item. Updates DateString when set.
+        /// </summary>
         public DateTime Date
         {
             get
@@ -78,6 +106,9 @@ namespace PickerDecisionGuideSample.ViewModels
 
         private string dateString = "Due today";
 
+        /// <summary>
+        /// Gets or sets the formatted date text shown in the UI.
+        /// </summary>
         public string DateString
         {
             get
@@ -100,10 +131,24 @@ namespace PickerDecisionGuideSample.ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;
     }
 
+    /// <summary>
+    /// Popup for creating a new to-do item with a date and subject.
+    /// </summary>
     public class CustomPopUp : SfPopup
     {
+        /// <summary>
+        /// The internal date picker control used inside the popup.
+        /// </summary>
         private Syncfusion.Maui.Picker.SfDatePicker picker;
+
+        /// <summary>
+        /// The entry used to capture the to-do subject text.
+        /// </summary>
         Entry entry;
+
+        /// <summary>
+        /// Text input layout that wraps the subject entry.
+        /// </summary>
         private SfTextInputLayout textInput;
 
         public CustomPopUp()
@@ -157,12 +202,22 @@ namespace PickerDecisionGuideSample.ViewModels
             this.PopupStyle.CornerRadius = new CornerRadius(5);
         }
 
+        /// <summary>
+        /// Handles the date picker Cancel button by resetting the input and closing the popup.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">Event data.</param>
         private void OnPickerCancelButtonClicked(object? sender, EventArgs e)
         {
             this.Reset();
             this.IsOpen = false;
         }
 
+        /// <summary>
+        /// Handles the date picker OK button by creating a new ToDoDetails and closing the popup.
+        /// </summary>
+        /// <param name="sender">The event source.</param>
+        /// <param name="e">Event data.</param>
         private void OnPickerOkButtonClicked(object? sender, EventArgs e)
         {
             if (picker.SelectedDate != null)
@@ -172,6 +227,9 @@ namespace PickerDecisionGuideSample.ViewModels
             this.IsOpen = false;
         }
 
+        /// <summary>
+        /// Resets the popup controls to their default values.
+        /// </summary>
         public void Reset()
         {
             if (this.picker != null)
@@ -185,13 +243,30 @@ namespace PickerDecisionGuideSample.ViewModels
             }
         }
 
+        /// <summary>
+        /// Raised when a new to-do item is created from the popup.
+        /// </summary>
         public event EventHandler? OnCreated;
     }
 
+    /// <summary>
+    /// Converts a date value to a color based on whether it is today, past, or future.
+    /// </summary>
     public class DateTimeToColorConverter : IValueConverter
     {
+        /// <summary>
+        /// Indicates whether the current app theme is light.
+        /// </summary>
         private bool isLightTheme = Application.Current?.RequestedTheme == AppTheme.Light;
 
+        /// <summary>
+        /// Converts a DateTime to a themed Color for display.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        /// <param name="targetType">The target type.</param>
+        /// <param name="parameter">Optional parameter.</param>
+        /// <param name="culture">Culture info.</param>
+        /// <returns>A Color representing the state of the date.</returns>
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value != null && value is DateTime date)
@@ -211,6 +286,10 @@ namespace PickerDecisionGuideSample.ViewModels
             return isLightTheme ? Color.FromArgb("#49454F") : Color.FromArgb("#CAC4D0");
         }
 
+        /// <summary>
+        /// ConvertBack is not used for this converter.
+        /// </summary>
+        /// <returns>Always returns an empty string.</returns>
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             return string.Empty;
