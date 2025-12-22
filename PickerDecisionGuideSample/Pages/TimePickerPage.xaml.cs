@@ -3,12 +3,25 @@ using PickerDecisionGuideSample.ViewModels;
 
 namespace PickerDecisionGuideSample.Pages
 {
+    /// <summary>
+    /// Code-behind for the TimePickerPage. Manages alarm list interactions and an SfTimePicker-based
+    /// editor for adjusting alarm times, along with theme-aware visual updates.
+    /// </summary>
     public partial class TimePickerPage : ContentPage
     {
+        /// <summary>
+        /// Indicates whether the app is using the light theme.
+        /// </summary>
         private bool isLightTheme = Application.Current?.RequestedTheme == AppTheme.Light;
 
+        /// <summary>
+        /// Holds the alarm currently being edited.
+        /// </summary>
         private AlarmDetails? alarmDetails;
 
+        /// <summary>
+        /// Initializes the page and configures the time picker header and footer.
+        /// </summary>
         public TimePickerPage()
         {
             InitializeComponent();
@@ -26,6 +39,11 @@ namespace PickerDecisionGuideSample.Pages
             this.alarmEditPicker.FooterView.OkButtonText = "Save";
 #endif
         }
+        /// <summary>
+        /// Opens the alarm editor for the tapped alarm when it is enabled.
+        /// </summary>
+        /// <param name="sender">Tapped Border bound to an AlarmDetails.</param>
+        /// <param name="e">Event data.</param>
         private void OnAlarmTapped(object sender, EventArgs e)
         {
 #if ANDROID || IOS
@@ -51,6 +69,11 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
+        /// <summary>
+        /// Confirms the new time for the current alarm and closes the editor.
+        /// </summary>
+        /// <param name="sender">SfTimePicker.</param>
+        /// <param name="e">Event data.</param>
         private void AlarmEditPicker_OkButtonClicked(object? sender, EventArgs e)
         {
             if (sender is Syncfusion.Maui.Picker.SfTimePicker picker && this.alarmDetails != null)
@@ -70,6 +93,11 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
+        /// <summary>
+        /// Cancels editing and closes the alarm editor popup.
+        /// </summary>
+        /// <param name="sender">Button or picker footer cancel action.</param>
+        /// <param name="e">Event data.</param>
         private void alarmEditPicker_CancelButtonClicked(object sender, EventArgs e)
         {
 #if ANDROID || IOS
@@ -79,6 +107,11 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
+        /// <summary>
+        /// Updates alarm text colors when the enable/disable switch is toggled.
+        /// </summary>
+        /// <param name="sender">SfSwitch bound to an AlarmDetails.</param>
+        /// <param name="e">Toggle event data.</param>
         private void alarmSwitch_Toggled(object sender, SwitchStateChangedEventArgs e)
         {
             if (sender is SfSwitch toggleSwitch && toggleSwitch.BindingContext != null && toggleSwitch.BindingContext is AlarmDetails alarmDetails && e.NewValue.HasValue)
@@ -97,6 +130,11 @@ namespace PickerDecisionGuideSample.Pages
 
         }
 
+        /// <summary>
+        /// Opens the add-alarm popup.
+        /// </summary>
+        /// <param name="sender">Tap source.</param>
+        /// <param name="e">Event data.</param>
         private void OnAddAlarmTapped(object sender, EventArgs e)
         {
 #if ANDROID || IOS
@@ -106,6 +144,11 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
+        /// <summary>
+        /// Adds a newly created alarm to the view model collection.
+        /// </summary>
+        /// <param name="sender">New AlarmDetails item.</param>
+        /// <param name="e">Event data.</param>
         private void alarmPopup_OnCreated(object sender, EventArgs e)
         {
             if (this.BindingContext != null && this.BindingContext is TimePickerCustomizationViewModel bindingContext && sender is AlarmDetails details)

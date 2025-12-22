@@ -3,18 +3,40 @@ using System.Globalization;
 
 namespace PickerDecisionGuideSample.Pages
 {
+    /// <summary>
+    /// Code-behind for the PickerPage. Demonstrates cascading Syncfusion SfPicker columns
+    /// for country and city selection, plus date range selection and a popup summary.
+    /// </summary>
     public partial class PickerPage : ContentPage
     {
+        /// <summary>
+        /// Selected departure date.
+        /// </summary>
         private DateTime from;
 
+        /// <summary>
+        /// Selected return date.
+        /// </summary>
         private DateTime to;
 
+        /// <summary>
+        /// Current From selection [Country, City].
+        /// </summary>
         private List<string> fromList;
 
+        /// <summary>
+        /// Current To selection [Country, City].
+        /// </summary>
         private List<string> toList;
 
+        /// <summary>
+        /// Indicates whether the app is currently in light theme.
+        /// </summary>
         private bool isLightTheme = Application.Current?.RequestedTheme == AppTheme.Light;
 
+        /// <summary>
+        /// Master list of countries.
+        /// </summary>
         private static List<string> countries = new List<string>() { "UK", "USA", "India", "UAE", "Germany" };
 
         private static List<string> ukCities = new List<string>() { "London", "Manchester", "Cambridge", "Edinburgh", "Glasgow", "Birmingham" };
@@ -26,6 +48,9 @@ namespace PickerDecisionGuideSample.Pages
         private static List<string> uaeCities = new List<string>() { "Dubai", "Abu Dhabi", "Fujairah", "Sharjah", "Ajman", "AL Ain" };
 
         private static List<string> germanyCities = new List<string>() { "Berlin", "Munich", "Frankfurt", "Hamburg", "Cologne", "Bonn" };
+        /// <summary>
+        /// Initializes the page, sets up pickers and date pickers, and applies header/footer text.
+        /// </summary>
         public PickerPage()
         {
             InitializeComponent();
@@ -64,6 +89,7 @@ namespace PickerDecisionGuideSample.Pages
             mobileDepartureDatePicker.CancelButtonClicked += DepartureDatePicker_CancelButtonClicked;
             mobileReturnDatePicker.CancelButtonClicked += ReturnDatePicker_CancelButtonClicked;
 
+            // Subscribe to popup-opened events to initialize selection values.
             mobileDepartureDatePicker.Opened += DepartureDatePicker_OnPopUpOpened;
             mobileReturnDatePicker.Opened += ReturnDatePicker_OnPopUpOpened;
 
@@ -97,6 +123,7 @@ namespace PickerDecisionGuideSample.Pages
             departureDatePicker.CancelButtonClicked += DepartureDatePicker_CancelButtonClicked;
             returnDatePicker.CancelButtonClicked += ReturnDatePicker_CancelButtonClicked;
 
+            // Subscribe to popup-opened events to initialize selection values.
             departureDatePicker.Opened += DepartureDatePicker_OnPopUpOpened;
             returnDatePicker.Opened += ReturnDatePicker_OnPopUpOpened;
 
@@ -126,6 +153,11 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
+        /// <summary>
+        /// Opens and initializes the departure date picker with the current 'from' date.
+        /// </summary>
+        /// <param name="sender">Picker.</param>
+        /// <param name="e">Event data.</param>
         private void DepartureDatePicker_OnPopUpOpened(object? sender, EventArgs e)
         {
 #if ANDROID || IOS
@@ -137,6 +169,11 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
+        /// <summary>
+        /// Opens and initializes the return date picker with the current 'to' date and minimum constraint.
+        /// </summary>
+        /// <param name="sender">Picker.</param>
+        /// <param name="e">Event data.</param>
         private void ReturnDatePicker_OnPopUpOpened(object? sender, EventArgs e)
         {
 #if ANDROID || IOS
@@ -150,6 +187,11 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
+        /// <summary>
+        /// Confirms the departure date selection, updates labels, and enforces return >= departure.
+        /// </summary>
+        /// <param name="sender">Picker.</param>
+        /// <param name="e">Event data.</param>
         private void DepartureDatePicker_OkButtonClicked(object? sender, EventArgs e)
         {
 #if ANDROID || IOS
@@ -181,6 +223,11 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
+        /// <summary>
+        /// Confirms the return date selection, updates labels, and closes the picker.
+        /// </summary>
+        /// <param name="sender">Picker.</param>
+        /// <param name="e">Event data.</param>
         private void ReturnDatePicker_OkButtonClicked(object? sender, EventArgs e)
         {
 #if ANDROID || IOS
@@ -200,6 +247,11 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
+        /// <summary>
+        /// Cancels the departure date selection and closes the picker.
+        /// </summary>
+        /// <param name="sender">Picker.</param>
+        /// <param name="e">Event data.</param>
         private void DepartureDatePicker_CancelButtonClicked(object? sender, EventArgs e)
         {
 #if ANDROID || IOS
@@ -209,6 +261,11 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
+        /// <summary>
+        /// Cancels the return date selection and closes the picker.
+        /// </summary>
+        /// <param name="sender">Picker.</param>
+        /// <param name="e">Event data.</param>
         private void ReturnDatePicker_CancelButtonClicked(object? sender, EventArgs e)
         {
 #if ANDROID || IOS
@@ -218,6 +275,11 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
+        /// <summary>
+        /// Opens the "From" picker and ensures the cascading City column reflects the selected Country.
+        /// </summary>
+        /// <param name="sender">Tap source.</param>
+        /// <param name="e">Event data.</param>
         private void TapGestureRecognizer_Tapped(System.Object sender, System.EventArgs e)
         {
 #if ANDROID || IOS
@@ -262,6 +324,11 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
+        /// <summary>
+        /// Opens the "To" picker and ensures the cascading City column reflects the selected Country.
+        /// </summary>
+        /// <param name="sender">Tap source.</param>
+        /// <param name="e">Event data.</param>
         void TapGestureRecognizer_Tapped_1(System.Object sender, System.EventArgs e)
         {
 #if ANDROID || IOS
@@ -305,6 +372,11 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
+        /// <summary>
+        /// Handles cascading update when the Country column changes in the From picker.
+        /// </summary>
+        /// <param name="sender">SfPicker.</param>
+        /// <param name="e">Selection changed args.</param>
         private void FromPicker_SelectionChanged(System.Object sender, Syncfusion.Maui.Picker.PickerSelectionChangedEventArgs e)
         {
             if (e.ColumnIndex == 1)
@@ -329,6 +401,11 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
+        /// <summary>
+        /// Handles cascading update when the Country column changes in the To picker.
+        /// </summary>
+        /// <param name="sender">SfPicker.</param>
+        /// <param name="e">Selection changed args.</param>
         private void ToPicker_SelectionChanged(System.Object sender, Syncfusion.Maui.Picker.PickerSelectionChangedEventArgs e)
         {
             if (e.ColumnIndex == 1)
@@ -353,6 +430,11 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
+        /// <summary>
+        /// Cancels the From picker and closes it.
+        /// </summary>
+        /// <param name="sender">SfPicker.</param>
+        /// <param name="e">Event data.</param>
         private void FromPicker_CancelButtonClicked(System.Object sender, System.EventArgs e)
         {
 #if ANDROID || IOS
@@ -362,6 +444,11 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
+        /// <summary>
+        /// Cancels the To picker and closes it.
+        /// </summary>
+        /// <param name="sender">SfPicker.</param>
+        /// <param name="e">Event data.</param>
         private void ToPicker_CancelButtonClicked(System.Object sender, System.EventArgs e)
         {
 #if ANDROID || IOS
@@ -371,6 +458,11 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
+        /// <summary>
+        /// Confirms the From picker selection and updates the label.
+        /// </summary>
+        /// <param name="sender">SfPicker.</param>
+        /// <param name="e">Event data.</param>
         private void FromPicker_OkButtonClicked(System.Object sender, System.EventArgs e)
         {
             if (sender is Syncfusion.Maui.Picker.SfPicker picker)
@@ -391,6 +483,11 @@ namespace PickerDecisionGuideSample.Pages
             }
         }
 
+        /// <summary>
+        /// Confirms the To picker selection and updates the label.
+        /// </summary>
+        /// <param name="sender">SfPicker.</param>
+        /// <param name="e">Event data.</param>
         private void ToPicker_OkButtonClicked(System.Object sender, System.EventArgs e)
         {
             if (sender is Syncfusion.Maui.Picker.SfPicker picker)
@@ -411,6 +508,11 @@ namespace PickerDecisionGuideSample.Pages
             }
         }
 
+        /// <summary>
+        /// Returns the city list for the given country.
+        /// </summary>
+        /// <param name="country">Country name.</param>
+        /// <returns>List of cities.</returns>
         private List<string> GetCityList(string country)
         {
             if (country == "UK")
@@ -437,6 +539,11 @@ namespace PickerDecisionGuideSample.Pages
             return new List<string>();
         }
 
+        /// <summary>
+        /// Gets a color either from resources or based on current theme.
+        /// </summary>
+        /// <param name="resourceName">Optional resource key.</param>
+        /// <returns>Resolved color.</returns>
         private Color GetDynamicColor(string? resourceName = null)
         {
             if (resourceName != null && App.Current != null && App.Current.Resources.TryGetValue(resourceName, out var colorValue) && colorValue is Color color)
@@ -458,6 +565,9 @@ namespace PickerDecisionGuideSample.Pages
             return Colors.Transparent;
         }
 
+        /// <summary>
+        /// Creates a reusable style for OK buttons used inside popup templates.
+        /// </summary>
         private Style GetOkButtonStyle()
         {
             return new Style(typeof(Button))
@@ -474,6 +584,9 @@ namespace PickerDecisionGuideSample.Pages
             };
         }
 
+        /// <summary>
+        /// Builds the footer template containing an OK button to dismiss the popup.
+        /// </summary>
         private DataTemplate GetFooterTemplate(SfPopup popup)
         {
             var footerTemplate = new DataTemplate(() =>
@@ -509,6 +622,9 @@ namespace PickerDecisionGuideSample.Pages
             return footerTemplate;
         }
 
+        /// <summary>
+        /// Builds the popup content template with a message and a divider.
+        /// </summary>
         private DataTemplate GetContentTemplate(SfPopup popup)
         {
             var footerTemplate = new DataTemplate(() =>
@@ -548,6 +664,11 @@ namespace PickerDecisionGuideSample.Pages
             return footerTemplate;
         }
 
+        /// <summary>
+        /// Simulates a search and shows a popup with the number of available flights.
+        /// </summary>
+        /// <param name="sender">Button.</param>
+        /// <param name="e">Event data.</param>
         private void SearchButton_Clicked(object sender, EventArgs e)
         {
             if (this.popup == null)
