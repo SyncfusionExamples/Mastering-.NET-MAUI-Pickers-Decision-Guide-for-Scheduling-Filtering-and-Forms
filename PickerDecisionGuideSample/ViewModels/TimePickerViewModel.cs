@@ -262,7 +262,7 @@ namespace PickerDecisionGuideSample.ViewModels
             label1.FontSize = 12;
             label1.Margin = new Thickness(10, 5);
             stack.Add(label1);
-            this.alarmTimePicker.FooterView.Height = 50;
+            this.alarmTimePicker.FooterView.Height = 60;
             this.alarmTimePicker.HeightRequest = 300;
             this.alarmTimePicker.Format = Syncfusion.Maui.Toolkit.Picker.PickerTimeFormat.h_mm_tt;
             this.alarmTimePicker.OkButtonClicked += AlarmTimePicker_OkButtonClicked;

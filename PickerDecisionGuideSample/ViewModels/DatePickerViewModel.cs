@@ -174,7 +174,7 @@ namespace PickerDecisionGuideSample.ViewModels
             label1.FontSize = 12;
             label1.Margin = new Thickness(10, 5);
             stack.Add(label1);
-            this.picker.FooterView.Height = 40;
+            this.picker.FooterView.Height = 50;
             this.picker.HeightRequest = 280;
             this.picker.OkButtonClicked += OnPickerOkButtonClicked;
             this.picker.CancelButtonClicked += OnPickerCancelButtonClicked;
