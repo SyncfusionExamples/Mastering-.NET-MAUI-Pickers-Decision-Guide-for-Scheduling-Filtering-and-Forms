@@ -18,13 +18,8 @@ namespace PickerDecisionGuideSample.Pages
 
             dateTimeText.Text = DateTime.Now.ToString("dd-MM-yyyy h:mm tt", CultureInfo.InvariantCulture);
 
-#if ANDROID || IOS
             this.reminderDateTimePicker.HeaderView.Height = 50;
             this.reminderDateTimePicker.FooterView.Height = 40;
-#else
-            this.reminderDateTimePicker.HeaderView.Height = 50;
-            this.reminderDateTimePicker.FooterView.Height = 40;
-#endif
         }
 
         /// <summary>

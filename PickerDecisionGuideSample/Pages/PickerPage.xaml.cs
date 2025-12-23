@@ -30,11 +30,6 @@ namespace PickerDecisionGuideSample.Pages
         private List<string> toList;
 
         /// <summary>
-        /// Indicates whether the app is currently in light theme.
-        /// </summary>
-        private bool isLightTheme = Application.Current?.RequestedTheme == AppTheme.Light;
-
-        /// <summary>
         /// Master list of countries.
         /// </summary>
         private static List<string> countries = new List<string>() { "UK", "USA", "India", "UAE", "Germany" };
@@ -539,31 +534,7 @@ namespace PickerDecisionGuideSample.Pages
             return new List<string>();
         }
 
-        /// <summary>
-        /// Gets a color either from resources or based on current theme.
-        /// </summary>
-        /// <param name="resourceName">Optional resource key.</param>
-        /// <returns>Resolved color.</returns>
-        private Color GetDynamicColor(string? resourceName = null)
-        {
-            if (resourceName != null && App.Current != null && App.Current.Resources.TryGetValue(resourceName, out var colorValue) && colorValue is Color color)
-            {
-                return color;
-            }
-            else
-            {
-                if (App.Current != null && App.Current.RequestedTheme == AppTheme.Light)
-                {
-                    return Color.FromRgb(0xFF, 0xFF, 0xFF);
-                }
-                else if (App.Current != null && App.Current.RequestedTheme == AppTheme.Dark)
-                {
-                    return Color.FromRgb(0x38, 0x1E, 0x72);
-                }
-            }
 
-            return Colors.Transparent;
-        }
 
         /// <summary>
         /// Creates a reusable style for OK buttons used inside popup templates.
@@ -577,8 +548,8 @@ namespace PickerDecisionGuideSample.Pages
                     new Setter { Property = Button.CornerRadiusProperty, Value = 20 },
                     new Setter { Property = Button.BorderColorProperty, Value = Color.FromArgb("#6750A4") },
                     new Setter { Property = Button.BorderWidthProperty, Value = 1 },
-                    new Setter { Property = Button.BackgroundColorProperty, Value = this.GetDynamicColor("SfPickerSelectionStroke") },
-                    new Setter { Property = Button.TextColorProperty, Value = this.GetDynamicColor() },
+                    new Setter { Property = Button.BackgroundColorProperty, Value = Color.FromArgb("#6750a4") },
+                    new Setter { Property = Button.TextColorProperty, Value = Colors.White },
                     new Setter { Property = Button.FontSizeProperty, Value = 14 },
                 }
             };
@@ -651,7 +622,7 @@ namespace PickerDecisionGuideSample.Pages
                     HeightRequest = 1,
                 };
 
-                stackLayout.BackgroundColor = isLightTheme ? Color.FromArgb("#611c1b1f") : Color.FromArgb("#61e6e1e5");
+                stackLayout.BackgroundColor = Color.FromArgb("#611c1b1f");
                 grid.Children.Add(label);
                 grid.Children.Add(stackLayout);
 

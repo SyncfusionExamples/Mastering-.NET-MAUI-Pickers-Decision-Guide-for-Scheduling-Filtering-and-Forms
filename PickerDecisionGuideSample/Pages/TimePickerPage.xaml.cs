@@ -10,11 +10,6 @@ namespace PickerDecisionGuideSample.Pages
     public partial class TimePickerPage : ContentPage
     {
         /// <summary>
-        /// Indicates whether the app is using the light theme.
-        /// </summary>
-        private bool isLightTheme = Application.Current?.RequestedTheme == AppTheme.Light;
-
-        /// <summary>
         /// Holds the alarm currently being edited.
         /// </summary>
         private AlarmDetails? alarmDetails;
@@ -118,13 +113,13 @@ namespace PickerDecisionGuideSample.Pages
             {
                 if (e.NewValue.Value)
                 {
-                    alarmDetails.AlarmTextColor = isLightTheme ? Colors.Black : Colors.White;
-                    alarmDetails.AlarmSecondaryTextColor = isLightTheme ? Color.FromArgb("#49454F") : Color.FromArgb("#CAC4D0");
+                    alarmDetails.AlarmTextColor = Colors.Black;
+                    alarmDetails.AlarmSecondaryTextColor = Color.FromArgb("#49454F");
                 }
                 else
                 {
-                    alarmDetails.AlarmTextColor = isLightTheme ? Colors.Black.WithAlpha(0.5f) : Colors.White.WithAlpha(0.5f);
-                    alarmDetails.AlarmSecondaryTextColor = isLightTheme ? Color.FromArgb("#49454F").WithAlpha(0.5f) : Color.FromArgb("#CAC4D0").WithAlpha(0.5f);
+                    alarmDetails.AlarmTextColor = Colors.Black.WithAlpha(0.5f);
+                    alarmDetails.AlarmSecondaryTextColor = Color.FromArgb("#49454F").WithAlpha(0.5f);
                 }
             }
 

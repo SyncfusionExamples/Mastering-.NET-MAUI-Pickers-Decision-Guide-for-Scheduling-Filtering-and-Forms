@@ -8,7 +8,7 @@
              x:Class="PickerDecisionGuideSample.Pages.PickerPage">
     
     <Grid Padding="10">
-        <Border x:Name="frame" IsVisible="False" Margin="0" Padding="0" BackgroundColor="Transparent" Stroke="{AppThemeBinding Light={StaticResource BorderLight}, Dark={StaticResource Border}}" HeightRequest="600" WidthRequest="370" VerticalOptions="Center" HorizontalOptions="Center">
+        <Border x:Name="frame" IsVisible="False" Margin="0" Padding="0" BackgroundColor="Transparent" Stroke="#E0E0E0" HeightRequest="600" WidthRequest="370" VerticalOptions="Center" HorizontalOptions="Center">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="16" />
             </Border.StrokeShape>
@@ -21,7 +21,7 @@
                 </Grid.RowDefinitions>
 
                 <Label Text="International Flights" HorizontalOptions="Center" VerticalOptions="Center" Padding="5" FontAttributes="Bold" FontSize="18" Margin="0,10,0,0" />
-                <BoxView Grid.Row="1" BackgroundColor="{AppThemeBinding Light={StaticResource BorderLight}, Dark={StaticResource Border}}"/>
+                <BoxView Grid.Row="1" BackgroundColor="#E0E0E0"/>
                 <StackLayout Grid.Row="2" WidthRequest="300" >
                     <StackLayout Orientation="Vertical" Padding="0,15,0,0">
                         <Label Text="From" TextColor="Gray"/>
@@ -40,7 +40,7 @@
                             <picker:SfPicker.ColumnHeaderView>
                                 <picker:PickerColumnHeaderView Height="40">
                                     <picker:PickerColumnHeaderView.TextStyle>
-                                        <picker:PickerTextStyle FontSize="16"  TextColor="{AppThemeBinding Light={StaticResource TextColourAlt1Light}, Dark={StaticResource TextColourAlt1}}"/>
+                                        <picker:PickerTextStyle FontSize="16"  TextColor="#333333"/>
                                     </picker:PickerColumnHeaderView.TextStyle>
                                 </picker:PickerColumnHeaderView>
                             </picker:SfPicker.ColumnHeaderView>
@@ -64,7 +64,7 @@
                             <picker:SfPicker.ColumnHeaderView>
                                 <picker:PickerColumnHeaderView Height="40">
                                     <picker:PickerColumnHeaderView.TextStyle>
-                                        <picker:PickerTextStyle FontSize="16" TextColor="{AppThemeBinding Light={StaticResource TextColourLight}, Dark={StaticResource TextColour}}"/>
+                                        <picker:PickerTextStyle FontSize="16" TextColor="#333333"/>
                                     </picker:PickerColumnHeaderView.TextStyle>
                                 </picker:PickerColumnHeaderView>
                             </picker:SfPicker.ColumnHeaderView>
@@ -107,7 +107,7 @@
                     </StackLayout>
                 </StackLayout>
 
-                <Button Text="Search" Grid.Row="3" WidthRequest="150" CornerRadius="12" HorizontalOptions="Center" VerticalOptions="Center" BorderWidth="0" Margin="0,30,0,0" Clicked="SearchButton_Clicked" />
+                <Button Text="Search" Grid.Row="3" WidthRequest="150" CornerRadius="12" HorizontalOptions="Center" VerticalOptions="Center" BorderWidth="0" Margin="0,30,0,0" BackgroundColor="#6750a4" TextColor="#FFFFFF" Clicked="SearchButton_Clicked" />
             </Grid>
         </Border>
 
@@ -130,7 +130,7 @@
                             <inputLayout:SfTextInputLayout.TrailingView>
                                 <Label Text="&#xe76e;"
                                             FontSize="20"
-                                            TextColor="{AppThemeBinding Light={StaticResource TextColourLight}, Dark={StaticResource TextColourAlt1}}"
+                                            TextColor="#333333"
                                             FontFamily="MauiSampleFontIcon" 
                                             HeightRequest="20"/>
                             </inputLayout:SfTextInputLayout.TrailingView>
@@ -139,9 +139,9 @@
                     <picker:SfPicker x:Name="mobileFromPicker" Mode="Dialog" SelectionChanged="FromPicker_SelectionChanged" OkButtonClicked="FromPicker_OkButtonClicked" CancelButtonClicked="FromPicker_CancelButtonClicked">
                         <picker:SfPicker.ColumnHeaderView>
                             <picker:PickerColumnHeaderView Height="40">
-                                <picker:PickerColumnHeaderView.TextStyle>
-                                    <picker:PickerTextStyle FontSize="16" TextColor="{AppThemeBinding Light={StaticResource TextColourLight}, Dark={StaticResource TextColour}}"/>
-                                </picker:PickerColumnHeaderView.TextStyle>
+                                    <picker:PickerColumnHeaderView.TextStyle>
+                                        <picker:PickerTextStyle FontSize="16" TextColor="#333333"/>
+                                    </picker:PickerColumnHeaderView.TextStyle>
                             </picker:PickerColumnHeaderView>
                         </picker:SfPicker.ColumnHeaderView>
                     </picker:SfPicker>
@@ -158,7 +158,7 @@
                             <inputLayout:SfTextInputLayout.TrailingView>
                                 <Label Text="&#xe76e;"
                                             FontSize="20"
-                                            TextColor="{AppThemeBinding Light={StaticResource TextColourLight}, Dark={StaticResource TextColourAlt1}}"
+                                            TextColor="#333333"
                                             FontFamily="MauiSampleFontIcon" 
                                             HeightRequest="20"/>
                             </inputLayout:SfTextInputLayout.TrailingView>
@@ -168,9 +168,9 @@
 
                         <picker:SfPicker.ColumnHeaderView>
                             <picker:PickerColumnHeaderView Height="40">
-                                <picker:PickerColumnHeaderView.TextStyle>
-                                    <picker:PickerTextStyle FontSize="16" TextColor="{AppThemeBinding Light={StaticResource TextColourLight}, Dark={StaticResource TextColour}}"/>
-                                </picker:PickerColumnHeaderView.TextStyle>
+                                    <picker:PickerColumnHeaderView.TextStyle>
+                                        <picker:PickerTextStyle FontSize="16" TextColor="#333333"/>
+                                    </picker:PickerColumnHeaderView.TextStyle>
                             </picker:PickerColumnHeaderView>
                         </picker:SfPicker.ColumnHeaderView>
                     </picker:SfPicker>
@@ -187,7 +187,7 @@
                             <inputLayout:SfTextInputLayout.TrailingView>
                                 <Label Text="&#xe757;"
                                             FontSize="20"
-                                            TextColor="{AppThemeBinding Light={StaticResource TextColourLight}, Dark={StaticResource TextColourAlt1}}"
+                                            TextColor="#333333"
                                             FontFamily="MauiSampleFontIcon" 
                                             HeightRequest="20"/>
                             </inputLayout:SfTextInputLayout.TrailingView>
@@ -208,7 +208,7 @@
                             <inputLayout:SfTextInputLayout.TrailingView>
                                 <Label Text="&#xe757;"
                                             FontSize="20"
-                                            TextColor="{AppThemeBinding Light={StaticResource TextColourLight}, Dark={StaticResource TextColourAlt1}}"
+                                            TextColor="#333333"
                                             FontFamily="MauiSampleFontIcon" 
                                             HeightRequest="20"/>
                             </inputLayout:SfTextInputLayout.TrailingView>
@@ -219,7 +219,7 @@
                 </StackLayout>
             </StackLayout>
 
-            <Button Text="Search" Grid.Row="2" WidthRequest="250" CornerRadius="12" HorizontalOptions="Center" VerticalOptions="End" HeightRequest="50" BorderWidth="0" Margin="0,10,0,10" Clicked="SearchButton_Clicked"/>
+            <Button Text="Search" Grid.Row="2" WidthRequest="250" CornerRadius="12" HorizontalOptions="Center" VerticalOptions="End" HeightRequest="50" BorderWidth="0" Margin="0,10,0,10" BackgroundColor="#6750a4" TextColor="#FFFFFF" Clicked="SearchButton_Clicked"/>
             <popUp:SfPopup Grid.Row="0" Grid.RowSpan="3" WidthRequest="330" IsVisible="false" x:Name="popup" FooterHeight="100" ShowHeader="False" ShowFooter="True" HeightRequest="200">
                 <popUp:SfPopup.PopupStyle>
                     <popUp:PopupStyle CornerRadius="15" MessageFontSize="15" />

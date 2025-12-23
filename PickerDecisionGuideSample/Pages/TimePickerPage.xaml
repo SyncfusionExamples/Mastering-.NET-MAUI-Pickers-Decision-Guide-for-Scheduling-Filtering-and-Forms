@@ -7,9 +7,8 @@
              xmlns:popup="clr-namespace:Syncfusion.Maui.Toolkit.Popup;assembly=Syncfusion.Maui.Toolkit"
              xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
              x:DataType="vm:TimePickerCustomizationViewModel"
-             Background="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" Padding="{OnPlatform WinUI=-10, MacCatalyst=-10, Default=0}"
+             Background="#FFFFFF" Padding="{OnPlatform WinUI=-10, MacCatalyst=-10, Default=0}"
              xmlns:vm="clr-namespace:PickerDecisionGuideSample.ViewModels">
-
 
     <ContentPage.Resources>
         <vm:TimeSpanConverter x:Key="TimeSpanConverter"/>
@@ -27,7 +26,7 @@
                                             <buttons:SwitchSettings
                                                 ThumbWidthRequest="26"
                                                 ThumbHeightRequest="26"
-                                                IconColor="{AppThemeBinding Light={StaticResource PrimaryBackground}, Dark={StaticResource PrimaryBackground}}"
+                                                IconColor="#6750a4"
                                                 CustomPath="M14.2051 0.744141L15.207 1.74609L5.69727 11.2559L0.792969 6.35156L1.79492 5.34961L5.69727 9.25195L14.2051 0.744141Z" />
                                         </Setter.Value>
                                     </Setter>
@@ -53,7 +52,7 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <Grid>
-            <Border IsVisible="{OnPlatform Default=True, Android=False, iOS=False}" Margin="0" Padding="0" BackgroundColor="Transparent" Stroke="{AppThemeBinding Light={StaticResource BorderLight}, Dark={StaticResource Border}}" HeightRequest="550" WidthRequest="375" VerticalOptions="Center" HorizontalOptions="Center">
+            <Border IsVisible="{OnPlatform Default=True, Android=False, iOS=False}" Margin="0" Padding="0" BackgroundColor="Transparent" Stroke="#E0E0E0" HeightRequest="550" WidthRequest="375" VerticalOptions="Center" HorizontalOptions="Center">
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="16" />
                 </Border.StrokeShape>
@@ -63,7 +62,7 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="vm:AlarmDetails">
                                 <Grid>
-                                    <Border x:Name="alarmBorder" StrokeShape="RoundRectangle 5" Stroke="{AppThemeBinding Light={StaticResource BorderLight}, Dark={StaticResource Border}}" BackgroundColor="{AppThemeBinding Light={StaticResource SampleBrowserBackgroundLight}, Dark={StaticResource SampleBrowserBackground}}" Margin="0,0,0,5" HeightRequest="130" WidthRequest="{OnPlatform WinUI=330}">
+                                    <Border x:Name="alarmBorder" StrokeShape="RoundRectangle 5" Stroke="#E0E0E0" BackgroundColor="#FFFFFF" Margin="0,0,0,5" HeightRequest="130" WidthRequest="{OnPlatform WinUI=330}">
                                         <Grid Padding="10">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="2*"/>
@@ -103,13 +102,13 @@
                     <timePicker:SfTimePicker x:Name="alarmEditPicker" Background="Transparent" InputTransparent="True" Mode="Dialog" Format="hh_mm_tt" OkButtonClicked="AlarmEditPicker_OkButtonClicked" CancelButtonClicked="alarmEditPicker_CancelButtonClicked"/>
 
                     <Grid ZIndex="{OnPlatform MacCatalyst=1}" Grid.Row="1" HeightRequest="50" VerticalOptions="End" HorizontalOptions="End" Margin ="10">
-                        <Path Fill="{AppThemeBinding Default={StaticResource PrimaryBackground}}">
+                        <Path Fill="#6750a4">
                             <Path.Data>
                                 <EllipseGeometry Center="25,25" RadiusX="25" RadiusY="25" />
                             </Path.Data>
                         </Path>
                         <Grid VerticalOptions="Center">
-                            <Label TextColor="{AppThemeBinding Default={StaticResource PrimaryForeground}}" FontSize="25" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="+"/>
+                            <Label TextColor="#FFFFFF" FontSize="25" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="+"/>
                         </Grid>
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnAddAlarmTapped"/>
@@ -124,7 +123,7 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="vm:AlarmDetails">
                             <Grid>
-                                <Border x:Name="alarmBorder1" StrokeShape="RoundRectangle 5" Stroke="{AppThemeBinding Light={StaticResource BorderLight}, Dark={StaticResource Border}}" BackgroundColor="{AppThemeBinding Light={StaticResource SampleBrowserBackgroundLight}, Dark={StaticResource SampleBrowserBackground}}" Margin="0,0,0,5" HeightRequest="130" WidthRequest="{OnPlatform WinUI=330}">
+                                <Border x:Name="alarmBorder1" StrokeShape="RoundRectangle 5" Stroke="#E0E0E0" BackgroundColor="#FFFFFF" Margin="0,0,0,5" HeightRequest="130" WidthRequest="{OnPlatform WinUI=330}">
                                     <Grid Padding="5">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="2*"/>
@@ -164,13 +163,13 @@
                 <timePicker:SfTimePicker x:Name="alarmEditPicker1" Background="Transparent" InputTransparent="True" Mode="Dialog" Format="hh_mm_tt" OkButtonClicked="AlarmEditPicker_OkButtonClicked" CancelButtonClicked="alarmEditPicker_CancelButtonClicked"/>
 
                 <Grid ZIndex="{OnPlatform iOS=1}" Grid.Row="1" HeightRequest="50" VerticalOptions="End" HorizontalOptions="End" Margin ="10">
-                    <Path Fill="{AppThemeBinding Default={StaticResource PrimaryBackground}}">
+                    <Path Fill="#6750a4">
                         <Path.Data>
                             <EllipseGeometry Center="25,25" RadiusX="25" RadiusY="25" />
                         </Path.Data>
                     </Path>
                     <Grid VerticalOptions="Center">
-                        <Label TextColor="{AppThemeBinding Default={StaticResource PrimaryForeground}}" FontSize="25" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="+"/>
+                        <Label TextColor="#FFFFFF" FontSize="25" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="+"/>
                     </Grid>
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnAddAlarmTapped"/>
