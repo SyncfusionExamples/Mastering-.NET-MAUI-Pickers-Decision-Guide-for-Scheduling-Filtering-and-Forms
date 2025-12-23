@@ -216,7 +216,7 @@ namespace PickerDecisionGuideSample.ViewModels
         /// <summary>
         /// The internal time picker control hosted in the popup.
         /// </summary>
-        private Syncfusion.Maui.Picker.SfTimePicker alarmTimePicker;
+        private Syncfusion.Maui.Toolkit.Picker.SfTimePicker alarmTimePicker;
 
         /// <summary>
         /// Entry used to capture the alarm message text.
@@ -239,7 +239,7 @@ namespace PickerDecisionGuideSample.ViewModels
         /// </summary>
         public AlarmPopup()
         {
-            this.alarmTimePicker = new Syncfusion.Maui.Picker.SfTimePicker();
+            this.alarmTimePicker = new Syncfusion.Maui.Toolkit.Picker.SfTimePicker();
             StackLayout stack = new StackLayout();
             stack.Padding = 15;
             Label label = new Label();
@@ -264,7 +264,7 @@ namespace PickerDecisionGuideSample.ViewModels
             stack.Add(label1);
             this.alarmTimePicker.FooterView.Height = 50;
             this.alarmTimePicker.HeightRequest = 300;
-            this.alarmTimePicker.Format = Syncfusion.Maui.Picker.PickerTimeFormat.h_mm_tt;
+            this.alarmTimePicker.Format = Syncfusion.Maui.Toolkit.Picker.PickerTimeFormat.h_mm_tt;
             this.alarmTimePicker.OkButtonClicked += AlarmTimePicker_OkButtonClicked;
             this.alarmTimePicker.CancelButtonClicked += AlarmTimePicker_CancelButtonClicked;
             stack.Add(this.alarmTimePicker);

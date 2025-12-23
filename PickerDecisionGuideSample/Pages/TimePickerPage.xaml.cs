@@ -76,7 +76,7 @@ namespace PickerDecisionGuideSample.Pages
         /// <param name="e">Event data.</param>
         private void AlarmEditPicker_OkButtonClicked(object? sender, EventArgs e)
         {
-            if (sender is Syncfusion.Maui.Picker.SfTimePicker picker && this.alarmDetails != null)
+            if (sender is Syncfusion.Maui.Toolkit.Picker.SfTimePicker picker && this.alarmDetails != null)
             {
                 if (picker.SelectedTime != null && this.alarmDetails.AlarmTime != picker.SelectedTime)
                 {

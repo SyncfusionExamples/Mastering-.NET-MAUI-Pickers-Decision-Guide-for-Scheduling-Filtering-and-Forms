@@ -81,7 +81,7 @@ namespace PickerDecisionGuideSample.Pages
         /// <param name="e">Event data.</param>
         private void OnDatePickerOkButtonClicked(object sender, EventArgs e)
         {
-            if (sender is Syncfusion.Maui.Picker.SfDatePicker picker && this.toDoDetails != null && picker.SelectedDate?.Date != null)
+            if (sender is Syncfusion.Maui.Toolkit.Picker.SfDatePicker picker && this.toDoDetails != null && picker.SelectedDate?.Date != null)
             {
                 if (this.toDoDetails.Date != picker.SelectedDate)
                 {
@@ -115,7 +115,7 @@ namespace PickerDecisionGuideSample.Pages
         /// <param name="e">Event data.</param>
         private void OnDatePickerCancelButtonClicked(object sender, EventArgs e)
         {
-            if (sender is Syncfusion.Maui.Picker.SfDatePicker picker)
+            if (sender is Syncfusion.Maui.Toolkit.Picker.SfDatePicker picker)
             {
                 this.toDoDetails = null;
                 picker.IsOpen = false;

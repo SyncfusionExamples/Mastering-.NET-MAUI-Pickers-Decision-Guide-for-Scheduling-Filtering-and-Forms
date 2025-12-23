@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:picker="clr-namespace:Syncfusion.Maui.Picker;assembly=Syncfusion.Maui.Picker"
-             xmlns:core="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
-             xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+             xmlns:picker="clr-namespace:Syncfusion.Maui.Toolkit.Picker;assembly=Syncfusion.Maui.Toolkit"
+             xmlns:inputLayout="clr-namespace:Syncfusion.Maui.Toolkit.TextInputLayout;assembly=Syncfusion.Maui.Toolkit"
+             xmlns:buttons="clr-namespace:Syncfusion.Maui.Toolkit.Buttons;assembly=Syncfusion.Maui.Toolkit"
              x:Class="PickerDecisionGuideSample.Pages.DateTimePickersPage">
 
     <Grid>
@@ -26,9 +26,9 @@
                     <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8" VerticalOptions="Center">
                         <Path WidthRequest="22" HeightRequest="22" VerticalOptions="Center" Fill="#D32F2F"
                               Data="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6V11c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5S10.5 3.17 10.5 4v.68C7.63 5.36 6 7.92 6 11v5l-1.7 1.7c-.2.2-.3.45-.3.71V19h16v-.59c0-.26-.11-.51-.29-.7L18 16z"/>
-                        <core:SfTextInputLayout Grid.Column="1" Hint="Title" ReserveSpaceForAssistiveLabels="False">
+                        <inputLayout:SfTextInputLayout Grid.Column="1" Hint="Title" ReserveSpaceForAssistiveLabels="False">
                             <Entry x:Name="titleEntry" HeightRequest="40"/>
-                        </core:SfTextInputLayout>
+                        </inputLayout:SfTextInputLayout>
                     </Grid>
                 </Border>
 

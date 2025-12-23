@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
-using PickerDecisionGuideSample;
 using Syncfusion.Maui.Core.Hosting;
+using Syncfusion.Maui.Toolkit.Hosting;
 
 namespace PickerDecisionGuideSample
 {
@@ -12,6 +12,7 @@ namespace PickerDecisionGuideSample
             builder.ConfigureSyncfusionCore();
 
             builder
+                .ConfigureSyncfusionToolkit()
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
                 {

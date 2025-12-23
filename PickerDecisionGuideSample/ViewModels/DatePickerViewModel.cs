@@ -139,7 +139,7 @@ namespace PickerDecisionGuideSample.ViewModels
         /// <summary>
         /// The internal date picker control used inside the popup.
         /// </summary>
-        private Syncfusion.Maui.Picker.SfDatePicker picker;
+        private Syncfusion.Maui.Toolkit.Picker.SfDatePicker picker;
 
         /// <summary>
         /// The entry used to capture the to-do subject text.
@@ -153,7 +153,7 @@ namespace PickerDecisionGuideSample.ViewModels
 
         public CustomPopUp()
         {
-            this.picker = new Syncfusion.Maui.Picker.SfDatePicker();
+            this.picker = new Syncfusion.Maui.Toolkit.Picker.SfDatePicker();
             StackLayout stack = new StackLayout();
             stack.Padding = 20;
             Label label = new Label();

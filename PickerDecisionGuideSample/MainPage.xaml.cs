@@ -4,7 +4,6 @@ namespace PickerDecisionGuideSample
 {
     public partial class MainPage : ContentPage
     {
-
         public MainPage()
         {
             InitializeComponent();

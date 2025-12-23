@@ -1,4 +1,4 @@
-using Syncfusion.Maui.Popup;
+using Syncfusion.Maui.Toolkit.Popup;
 using System.Globalization;
 
 namespace PickerDecisionGuideSample.Pages
@@ -65,17 +65,17 @@ namespace PickerDecisionGuideSample.Pages
             to = DateTime.Now.Date;
             fromList = new List<string>() { "India", "Chennai" };
             toList = new List<string>() { "USA", "Boston" };
-            Syncfusion.Maui.Picker.PickerColumn countyColumn = new Syncfusion.Maui.Picker.PickerColumn() { HeaderText = "Country", SelectedIndex = 2, ItemsSource = countries, Width = 150 };
-            Syncfusion.Maui.Picker.PickerColumn countyColumn1 = new Syncfusion.Maui.Picker.PickerColumn() { HeaderText = "Country", SelectedIndex = 1, ItemsSource = countries, Width = 150 };
-            Syncfusion.Maui.Picker.PickerColumn cityColumn = new Syncfusion.Maui.Picker.PickerColumn() { HeaderText = "City", SelectedIndex = 2, ItemsSource = indiaCities, Width = 150 };
-            Syncfusion.Maui.Picker.PickerColumn cityColumn1 = new Syncfusion.Maui.Picker.PickerColumn() { HeaderText = "City", SelectedIndex = 4, ItemsSource = usaCities, Width = 150 };
+            Syncfusion.Maui.Toolkit.Picker.PickerColumn countyColumn = new Syncfusion.Maui.Toolkit.Picker.PickerColumn() { HeaderText = "Country", SelectedIndex = 2, ItemsSource = countries, Width = 150 };
+            Syncfusion.Maui.Toolkit.Picker.PickerColumn countyColumn1 = new Syncfusion.Maui.Toolkit.Picker.PickerColumn() { HeaderText = "Country", SelectedIndex = 1, ItemsSource = countries, Width = 150 };
+            Syncfusion.Maui.Toolkit.Picker.PickerColumn cityColumn = new Syncfusion.Maui.Toolkit.Picker.PickerColumn() { HeaderText = "City", SelectedIndex = 2, ItemsSource = indiaCities, Width = 150 };
+            Syncfusion.Maui.Toolkit.Picker.PickerColumn cityColumn1 = new Syncfusion.Maui.Toolkit.Picker.PickerColumn() { HeaderText = "City", SelectedIndex = 4, ItemsSource = usaCities, Width = 150 };
 #if ANDROID || IOS
-            mobileFromPicker.Columns = new System.Collections.ObjectModel.ObservableCollection<Syncfusion.Maui.Picker.PickerColumn>() { countyColumn, cityColumn };
-            mobileToPicker.Columns = new System.Collections.ObjectModel.ObservableCollection<Syncfusion.Maui.Picker.PickerColumn>() { countyColumn1, cityColumn1 };
+            mobileFromPicker.Columns = new System.Collections.ObjectModel.ObservableCollection<Syncfusion.Maui.Toolkit.Picker.PickerColumn>() { countyColumn, cityColumn };
+            mobileToPicker.Columns = new System.Collections.ObjectModel.ObservableCollection<Syncfusion.Maui.Toolkit.Picker.PickerColumn>() { countyColumn1, cityColumn1 };
             this.mobileGrid.IsVisible = true;
 #else
-            fromPicker.Columns = new System.Collections.ObjectModel.ObservableCollection<Syncfusion.Maui.Picker.PickerColumn>() { countyColumn, cityColumn };
-            toPicker.Columns = new System.Collections.ObjectModel.ObservableCollection<Syncfusion.Maui.Picker.PickerColumn>() { countyColumn1, cityColumn1 };
+            fromPicker.Columns = new System.Collections.ObjectModel.ObservableCollection<Syncfusion.Maui.Toolkit.Picker.PickerColumn>() { countyColumn, cityColumn };
+            toPicker.Columns = new System.Collections.ObjectModel.ObservableCollection<Syncfusion.Maui.Toolkit.Picker.PickerColumn>() { countyColumn1, cityColumn1 };
             this.frame.IsVisible = true;
 #endif
             string str = DateTime.Now.Day.ToString();
@@ -289,7 +289,7 @@ namespace PickerDecisionGuideSample.Pages
                 int selectedIndex = country.IndexOf(fromList[0]);
                 List<string> cities = this.GetCityList(countries[selectedIndex]);
                 int citySelectedIndex = cities.IndexOf(fromList[1]);
-                Syncfusion.Maui.Picker.PickerColumn cityColumn = new Syncfusion.Maui.Picker.PickerColumn() { HeaderText = "City", SelectedIndex = citySelectedIndex, ItemsSource = cities, Width = 150 };
+                Syncfusion.Maui.Toolkit.Picker.PickerColumn cityColumn = new Syncfusion.Maui.Toolkit.Picker.PickerColumn() { HeaderText = "City", SelectedIndex = citySelectedIndex, ItemsSource = cities, Width = 150 };
                 if (mobileFromPicker.Columns[1].ItemsSource != cities)
                 {
                     mobileFromPicker.Columns[1] = cityColumn;
@@ -309,7 +309,7 @@ namespace PickerDecisionGuideSample.Pages
                 int selectedIndex = country.IndexOf(fromList[0]);
                 List<string> cities = this.GetCityList(countries[selectedIndex]);
                 int citySelectedIndex = cities.IndexOf(fromList[1]);
-                Syncfusion.Maui.Picker.PickerColumn cityColumn = new Syncfusion.Maui.Picker.PickerColumn() { HeaderText = "City", SelectedIndex = citySelectedIndex, ItemsSource = cities, Width = 150 };
+                Syncfusion.Maui.Toolkit.Picker.PickerColumn cityColumn = new Syncfusion.Maui.Toolkit.Picker.PickerColumn() { HeaderText = "City", SelectedIndex = citySelectedIndex, ItemsSource = cities, Width = 150 };
                 if (fromPicker.Columns[1].ItemsSource != cities)
                 {
                     fromPicker.Columns[1] = cityColumn;
@@ -338,7 +338,7 @@ namespace PickerDecisionGuideSample.Pages
                 int selectedIndex = country.IndexOf(toList[0]);
                 List<string> cities = this.GetCityList(countries[selectedIndex]);
                 int citySelectedIndex = cities.IndexOf(toList[1]);
-                Syncfusion.Maui.Picker.PickerColumn cityColumn = new Syncfusion.Maui.Picker.PickerColumn() { HeaderText = "City", SelectedIndex = citySelectedIndex, ItemsSource = cities, Width = 150 };
+                Syncfusion.Maui.Toolkit.Picker.PickerColumn cityColumn = new Syncfusion.Maui.Toolkit.Picker.PickerColumn() { HeaderText = "City", SelectedIndex = citySelectedIndex, ItemsSource = cities, Width = 150 };
                 if (mobileToPicker.Columns[1].ItemsSource != cities)
                 {
                     mobileToPicker.Columns[1] = cityColumn;
@@ -357,7 +357,7 @@ namespace PickerDecisionGuideSample.Pages
                 int selectedIndex = country.IndexOf(toList[0]);
                 List<string> cities = this.GetCityList(countries[selectedIndex]);
                 int citySelectedIndex = cities.IndexOf(toList[1]);
-                Syncfusion.Maui.Picker.PickerColumn cityColumn = new Syncfusion.Maui.Picker.PickerColumn() { HeaderText = "City", SelectedIndex = citySelectedIndex, ItemsSource = cities, Width = 150 };
+                Syncfusion.Maui.Toolkit.Picker.PickerColumn cityColumn = new Syncfusion.Maui.Toolkit.Picker.PickerColumn() { HeaderText = "City", SelectedIndex = citySelectedIndex, ItemsSource = cities, Width = 150 };
                 if (toPicker.Columns[1].ItemsSource != cities)
                 {
                     toPicker.Columns[1] = cityColumn;
@@ -377,7 +377,7 @@ namespace PickerDecisionGuideSample.Pages
         /// </summary>
         /// <param name="sender">SfPicker.</param>
         /// <param name="e">Selection changed args.</param>
-        private void FromPicker_SelectionChanged(System.Object sender, Syncfusion.Maui.Picker.PickerSelectionChangedEventArgs e)
+        private void FromPicker_SelectionChanged(System.Object sender, Syncfusion.Maui.Toolkit.Picker.PickerSelectionChangedEventArgs e)
         {
             if (e.ColumnIndex == 1)
             {
@@ -386,7 +386,7 @@ namespace PickerDecisionGuideSample.Pages
 
             string country = countries[e.NewValue];
             List<string> cities = this.GetCityList(country);
-            Syncfusion.Maui.Picker.PickerColumn cityColumn = new Syncfusion.Maui.Picker.PickerColumn() { HeaderText = "City", SelectedIndex = 0, ItemsSource = cities, Width = 150 };
+            Syncfusion.Maui.Toolkit.Picker.PickerColumn cityColumn = new Syncfusion.Maui.Toolkit.Picker.PickerColumn() { HeaderText = "City", SelectedIndex = 0, ItemsSource = cities, Width = 150 };
 
 #if ANDROID || IOS
             if (mobileFromPicker.Columns[1].ItemsSource != cities)
@@ -406,7 +406,7 @@ namespace PickerDecisionGuideSample.Pages
         /// </summary>
         /// <param name="sender">SfPicker.</param>
         /// <param name="e">Selection changed args.</param>
-        private void ToPicker_SelectionChanged(System.Object sender, Syncfusion.Maui.Picker.PickerSelectionChangedEventArgs e)
+        private void ToPicker_SelectionChanged(System.Object sender, Syncfusion.Maui.Toolkit.Picker.PickerSelectionChangedEventArgs e)
         {
             if (e.ColumnIndex == 1)
             {
@@ -415,7 +415,7 @@ namespace PickerDecisionGuideSample.Pages
 
             string country = countries[e.NewValue];
             List<string> cities = this.GetCityList(country);
-            Syncfusion.Maui.Picker.PickerColumn cityColumn = new Syncfusion.Maui.Picker.PickerColumn() { HeaderText = "City", SelectedIndex = 0, ItemsSource = cities, Width = 150 };
+            Syncfusion.Maui.Toolkit.Picker.PickerColumn cityColumn = new Syncfusion.Maui.Toolkit.Picker.PickerColumn() { HeaderText = "City", SelectedIndex = 0, ItemsSource = cities, Width = 150 };
 
 #if ANDROID || IOS
             if (mobileToPicker.Columns[1].ItemsSource != cities)
@@ -465,7 +465,7 @@ namespace PickerDecisionGuideSample.Pages
         /// <param name="e">Event data.</param>
         private void FromPicker_OkButtonClicked(System.Object sender, System.EventArgs e)
         {
-            if (sender is Syncfusion.Maui.Picker.SfPicker picker)
+            if (sender is Syncfusion.Maui.Toolkit.Picker.SfPicker picker)
             {
                 int countryColumnIndex = picker.Columns[0].SelectedIndex;
                 int cityColumnIndex = picker.Columns[1].SelectedIndex;
@@ -490,7 +490,7 @@ namespace PickerDecisionGuideSample.Pages
         /// <param name="e">Event data.</param>
         private void ToPicker_OkButtonClicked(System.Object sender, System.EventArgs e)
         {
-            if (sender is Syncfusion.Maui.Picker.SfPicker picker)
+            if (sender is Syncfusion.Maui.Toolkit.Picker.SfPicker picker)
             {
                 int countryColumnIndex = picker.Columns[0].SelectedIndex;
                 int cityColumnIndex = picker.Columns[1].SelectedIndex;
