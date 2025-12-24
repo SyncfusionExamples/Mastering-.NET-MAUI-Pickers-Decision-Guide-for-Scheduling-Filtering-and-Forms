@@ -280,7 +280,7 @@ namespace PickerDecisionGuideSample.ViewModels
             });
 
 #if ANDROID || IOS || MACCATALYST
-            this.HeightRequest = 490;
+            this.HeightRequest = 510;
 #else
             this.HeightRequest = 500;
 #endif
