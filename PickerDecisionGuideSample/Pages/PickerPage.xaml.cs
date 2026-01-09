@@ -3,49 +3,27 @@ using System.Globalization;
 
 namespace PickerDecisionGuideSample.Pages
 {
-    /// <summary>
-    /// Code-behind for the PickerPage. Demonstrates cascading Syncfusion SfPicker columns
-    /// for country and city selection, plus date range selection and a popup summary.
-    /// </summary>
     public partial class PickerPage : ContentPage
     {
-        /// <summary>
-        /// Selected departure date.
-        /// </summary>
-        private DateTime from;
+        // Nullable dates to represent "no selection".
+        private DateTime? from;
+        private DateTime? to;
 
-        /// <summary>
-        /// Selected return date.
-        /// </summary>
-        private DateTime to;
-
-        /// <summary>
-        /// Current From selection [Country, City].
-        /// </summary>
+        // Current From/To selection [Country, City] (empty until user picks).
         private List<string> fromList;
-
-        /// <summary>
-        /// Current To selection [Country, City].
-        /// </summary>
         private List<string> toList;
 
-        /// <summary>
-        /// Master list of countries.
-        /// </summary>
-        private static List<string> countries = new List<string>() { "UK", "USA", "India", "UAE", "Germany" };
+        // Master data.
+        private static readonly List<string> countries = new() { "UK", "USA", "India", "UAE", "Germany" };
+        private static readonly List<string> ukCities = new() { "London", "Manchester", "Cambridge", "Edinburgh", "Glasgow", "Birmingham" };
+        private static readonly List<string> usaCities = new() { "New York", "Seattle", "Washington", "Chicago", "Boston", "Los Angles" };
+        private static readonly List<string> indiaCities = new() { "Mumbai", "Bengaluru", "Chennai", "Pune", "Jaipur", "Delhi" };
+        private static readonly List<string> uaeCities = new() { "Dubai", "Abu Dhabi", "Fujairah", "Sharjah", "Ajman", "AL Ain" };
+        private static readonly List<string> germanyCities = new() { "Berlin", "Munich", "Frankfurt", "Hamburg", "Cologne", "Bonn" };
 
-        private static List<string> ukCities = new List<string>() { "London", "Manchester", "Cambridge", "Edinburgh", "Glasgow", "Birmingham" };
+        private const string PlacePlaceholder = "Select place";
+        private const string DatePlaceholder = "Select date";
 
-        private static List<string> usaCities = new List<string>() { "New York", "Seattle", "Washington", "Chicago", "Boston", "Los Angles" };
-
-        private static List<string> indiaCities = new List<string>() { "Mumbai", "Bengaluru", "Chennai", "Pune", "Jaipur", "Delhi" };
-
-        private static List<string> uaeCities = new List<string>() { "Dubai", "Abu Dhabi", "Fujairah", "Sharjah", "Ajman", "AL Ain" };
-
-        private static List<string> germanyCities = new List<string>() { "Berlin", "Munich", "Frankfurt", "Hamburg", "Cologne", "Bonn" };
-        /// <summary>
-        /// Initializes the page, sets up pickers and date pickers, and applies header/footer text.
-        /// </summary>
         public PickerPage()
         {
             InitializeComponent();
@@ -56,45 +34,77 @@ namespace PickerDecisionGuideSample.Pages
                 popup.ContentTemplate = this.GetContentTemplate(popup);
             }
 
-            from = DateTime.Now.Date;
-            to = DateTime.Now.Date;
-            fromList = new List<string>() { "India", "Chennai" };
-            toList = new List<string>() { "USA", "Boston" };
-            Syncfusion.Maui.Toolkit.Picker.PickerColumn countyColumn = new Syncfusion.Maui.Toolkit.Picker.PickerColumn() { HeaderText = "Country", SelectedIndex = 2, ItemsSource = countries, Width = 150 };
-            Syncfusion.Maui.Toolkit.Picker.PickerColumn countyColumn1 = new Syncfusion.Maui.Toolkit.Picker.PickerColumn() { HeaderText = "Country", SelectedIndex = 1, ItemsSource = countries, Width = 150 };
-            Syncfusion.Maui.Toolkit.Picker.PickerColumn cityColumn = new Syncfusion.Maui.Toolkit.Picker.PickerColumn() { HeaderText = "City", SelectedIndex = 2, ItemsSource = indiaCities, Width = 150 };
-            Syncfusion.Maui.Toolkit.Picker.PickerColumn cityColumn1 = new Syncfusion.Maui.Toolkit.Picker.PickerColumn() { HeaderText = "City", SelectedIndex = 4, ItemsSource = usaCities, Width = 150 };
+            // Start with no selections.
+            from = null;
+            to = null;
+            fromList = new List<string>();
+            toList = new List<string>();
+
+            // Set friendly placeholders.
 #if ANDROID || IOS
-            mobileFromPicker.Columns = new System.Collections.ObjectModel.ObservableCollection<Syncfusion.Maui.Toolkit.Picker.PickerColumn>() { countyColumn, cityColumn };
-            mobileToPicker.Columns = new System.Collections.ObjectModel.ObservableCollection<Syncfusion.Maui.Toolkit.Picker.PickerColumn>() { countyColumn1, cityColumn1 };
+            if (mobileFromLabel != null) mobileFromLabel.Text = PlacePlaceholder;
+            if (mobileToLabel != null) mobileToLabel.Text = PlacePlaceholder;
+            if (mobileDepartureDateLabel != null) mobileDepartureDateLabel.Text = DatePlaceholder;
+            if (mobileReturnDateLabel != null) mobileReturnDateLabel.Text = DatePlaceholder;
+#else
+            if (fromLabel != null) fromLabel.Text = PlacePlaceholder;
+            if (toLabel != null) toLabel.Text = PlacePlaceholder;
+            if (departureDateLabel != null) departureDateLabel.Text = DatePlaceholder;
+            if (returnDateLabel != null) returnDateLabel.Text = DatePlaceholder;
+#endif
+
+            // Build pickers with NO preselected rows (SelectedIndex = -1).
+            var fromCountryColumn = new Syncfusion.Maui.Toolkit.Picker.PickerColumn()
+            {
+                HeaderText = "Country",
+                SelectedIndex = -1,
+                ItemsSource = countries,
+                Width = 150
+            };
+            var fromCityColumn = new Syncfusion.Maui.Toolkit.Picker.PickerColumn()
+            {
+                HeaderText = "City",
+                SelectedIndex = -1,
+                ItemsSource = new List<string>(),
+                Width = 150
+            };
+
+            var toCountryColumn = new Syncfusion.Maui.Toolkit.Picker.PickerColumn()
+            {
+                HeaderText = "Country",
+                SelectedIndex = -1,
+                ItemsSource = countries,
+                Width = 150
+            };
+            var toCityColumn = new Syncfusion.Maui.Toolkit.Picker.PickerColumn()
+            {
+                HeaderText = "City",
+                SelectedIndex = -1,
+                ItemsSource = new List<string>(),
+                Width = 150
+            };
+
+#if ANDROID || IOS
+            mobileFromPicker.Columns = new System.Collections.ObjectModel.ObservableCollection<Syncfusion.Maui.Toolkit.Picker.PickerColumn>() { fromCountryColumn, fromCityColumn };
+            mobileToPicker.Columns = new System.Collections.ObjectModel.ObservableCollection<Syncfusion.Maui.Toolkit.Picker.PickerColumn>() { toCountryColumn, toCityColumn };
             this.mobileGrid.IsVisible = true;
 #else
-            fromPicker.Columns = new System.Collections.ObjectModel.ObservableCollection<Syncfusion.Maui.Toolkit.Picker.PickerColumn>() { countyColumn, cityColumn };
-            toPicker.Columns = new System.Collections.ObjectModel.ObservableCollection<Syncfusion.Maui.Toolkit.Picker.PickerColumn>() { countyColumn1, cityColumn1 };
+            fromPicker.Columns = new System.Collections.ObjectModel.ObservableCollection<Syncfusion.Maui.Toolkit.Picker.PickerColumn>() { fromCountryColumn, fromCityColumn };
+            toPicker.Columns = new System.Collections.ObjectModel.ObservableCollection<Syncfusion.Maui.Toolkit.Picker.PickerColumn>() { toCountryColumn, toCityColumn };
             this.frame.IsVisible = true;
 #endif
-            string str = DateTime.Now.Day.ToString();
-            string fromString = str + " " + CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(DateTime.Now.Month).ToString() + "," + " " + DateTime.Now.Year.ToString();
 
+            // Wire date pickers (no defaults; don’t set SelectedDate in Opened).
 #if ANDROID || IOS
-
             mobileDepartureDatePicker.OkButtonClicked += DepartureDatePicker_OkButtonClicked;
             mobileReturnDatePicker.OkButtonClicked += ReturnDatePicker_OkButtonClicked;
-
             mobileDepartureDatePicker.CancelButtonClicked += DepartureDatePicker_CancelButtonClicked;
             mobileReturnDatePicker.CancelButtonClicked += ReturnDatePicker_CancelButtonClicked;
 
-            // Subscribe to popup-opened events to initialize selection values.
             mobileDepartureDatePicker.Opened += DepartureDatePicker_OnPopUpOpened;
             mobileReturnDatePicker.Opened += ReturnDatePicker_OnPopUpOpened;
 
-            mobileDepartureDateLabel.Text = fromString;
-            mobileReturnDateLabel.Text = fromString;
             mobileDepartureDatePicker.MinimumDate = DateTime.Today;
-            if (mobileReturnDatePicker.SelectedDate != null)
-            {
-                mobileReturnDatePicker.MinimumDate = mobileReturnDatePicker.SelectedDate.Value.Date;
-            }
 
             mobileFromPicker.HeaderView.Height = 40;
             mobileFromPicker.HeaderView.Text = "FROM";
@@ -114,21 +124,13 @@ namespace PickerDecisionGuideSample.Pages
 #else
             departureDatePicker.OkButtonClicked += DepartureDatePicker_OkButtonClicked;
             returnDatePicker.OkButtonClicked += ReturnDatePicker_OkButtonClicked;
-
             departureDatePicker.CancelButtonClicked += DepartureDatePicker_CancelButtonClicked;
             returnDatePicker.CancelButtonClicked += ReturnDatePicker_CancelButtonClicked;
 
-            // Subscribe to popup-opened events to initialize selection values.
             departureDatePicker.Opened += DepartureDatePicker_OnPopUpOpened;
             returnDatePicker.Opened += ReturnDatePicker_OnPopUpOpened;
 
-            departureDateLabel.Text = fromString;
-            returnDateLabel.Text = fromString;
             departureDatePicker.MinimumDate = DateTime.Today;
-            if (returnDatePicker.SelectedDate != null)
-            {
-                returnDatePicker.MinimumDate = returnDatePicker.SelectedDate.Value.Date;
-            }
 
             fromPicker.HeaderView.Height = 40;
             fromPicker.HeaderView.Text = "FROM";
@@ -148,105 +150,86 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
-        /// <summary>
-        /// Opens and initializes the departure date picker with the current 'from' date.
-        /// </summary>
-        /// <param name="sender">Picker.</param>
-        /// <param name="e">Event data.</param>
+        // Popup-open handlers (do not preselect, do not set SelectedDate).
         private void DepartureDatePicker_OnPopUpOpened(object? sender, EventArgs e)
         {
 #if ANDROID || IOS
             mobileDepartureDatePicker.IsOpen = true;
-            mobileDepartureDatePicker.SelectedDate = from;
+            mobileDepartureDatePicker.MinimumDate = DateTime.Today;
 #else
             departureDatePicker.IsOpen = true;
-            departureDatePicker.SelectedDate = from;
+            departureDatePicker.MinimumDate = DateTime.Today;
 #endif
         }
 
-        /// <summary>
-        /// Opens and initializes the return date picker with the current 'to' date and minimum constraint.
-        /// </summary>
-        /// <param name="sender">Picker.</param>
-        /// <param name="e">Event data.</param>
         private void ReturnDatePicker_OnPopUpOpened(object? sender, EventArgs e)
         {
 #if ANDROID || IOS
             mobileReturnDatePicker.IsOpen = true;
-            mobileReturnDatePicker.MinimumDate = from;
-            mobileReturnDatePicker.SelectedDate = to;
+            mobileReturnDatePicker.MinimumDate = from ?? DateTime.Today;
 #else
             returnDatePicker.IsOpen = true;
-            returnDatePicker.MinimumDate = from;
-            returnDatePicker.SelectedDate = to;
+            returnDatePicker.MinimumDate = from ?? DateTime.Today;
 #endif
         }
 
-        /// <summary>
-        /// Confirms the departure date selection, updates labels, and enforces return >= departure.
-        /// </summary>
-        /// <param name="sender">Picker.</param>
-        /// <param name="e">Event data.</param>
+        // Departure OK: set value and label only if user picked a date.
         private void DepartureDatePicker_OkButtonClicked(object? sender, EventArgs e)
         {
 #if ANDROID || IOS
-            if (mobileDepartureDatePicker.SelectedDate != null)
+            if (mobileDepartureDatePicker.SelectedDate.HasValue)
             {
                 from = mobileDepartureDatePicker.SelectedDate.Value.Date;
+                if (mobileDepartureDateLabel != null)
+                    mobileDepartureDateLabel.Text = from.Value.ToString("dd MMM yyyy", CultureInfo.CurrentCulture);
+
+                // If return exists and is invalid now, clear it back to placeholder.
+                if (to.HasValue && to.Value.Date < from.Value.Date)
+                {
+                    to = null;
+                    if (mobileReturnDateLabel != null) mobileReturnDateLabel.Text = DatePlaceholder;
+                }
             }
-            mobileDepartureDateLabel.Text = from.Day.ToString() + " " + CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(from.Month).ToString() + "," + " " + from.Year.ToString();
-            if (from.Date > to.Date)
-            {
-                to = from;
-                mobileReturnDateLabel.Text = to.Day.ToString() + " " + CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(to.Month).ToString() + "," + " " + to.Year.ToString();
-            }
-            
             mobileDepartureDatePicker.IsOpen = false;
 #else
-            if (departureDatePicker.SelectedDate != null)
+            if (departureDatePicker.SelectedDate.HasValue)
             {
                 from = departureDatePicker.SelectedDate.Value.Date;
-            }
-            departureDateLabel.Text = from.Day.ToString() + " " + CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(from.Month).ToString() + "," + " " + from.Year.ToString();
-            if (from.Date > to.Date)
-            {
-                to = from;
-                returnDateLabel.Text = to.Day.ToString() + " " + CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(to.Month).ToString() + "," + " " + to.Year.ToString();
-            }
+                if (departureDateLabel != null)
+                    departureDateLabel.Text = from.Value.ToString("dd MMM yyyy", CultureInfo.CurrentCulture);
 
+                if (to.HasValue && to.Value.Date < from.Value.Date)
+                {
+                    to = null;
+                    if (returnDateLabel != null) returnDateLabel.Text = DatePlaceholder;
+                }
+            }
             departureDatePicker.IsOpen = false;
 #endif
         }
 
-        /// <summary>
-        /// Confirms the return date selection, updates labels, and closes the picker.
-        /// </summary>
-        /// <param name="sender">Picker.</param>
-        /// <param name="e">Event data.</param>
+        // Return OK: set value and label only if user picked a date.
         private void ReturnDatePicker_OkButtonClicked(object? sender, EventArgs e)
         {
 #if ANDROID || IOS
-            if (mobileReturnDatePicker.SelectedDate != null)
+            if (mobileReturnDatePicker.SelectedDate.HasValue)
             {
                 to = mobileReturnDatePicker.SelectedDate.Value.Date;
+                if (mobileReturnDateLabel != null)
+                    mobileReturnDateLabel.Text = to.Value.ToString("dd MMM yyyy", CultureInfo.CurrentCulture);
             }
-            mobileReturnDateLabel.Text = to.Day.ToString() + " " + CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(to.Month).ToString() + "," + " " + to.Year.ToString();
             mobileReturnDatePicker.IsOpen = false;
 #else
-            if (returnDatePicker.SelectedDate != null)
+            if (returnDatePicker.SelectedDate.HasValue)
             {
                 to = returnDatePicker.SelectedDate.Value.Date;
+                if (returnDateLabel != null)
+                    returnDateLabel.Text = to.Value.ToString("dd MMM yyyy", CultureInfo.CurrentCulture);
             }
-            returnDateLabel.Text = to.Day.ToString() + " " + CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(to.Month).ToString() + "," + " " + to.Year.ToString();
             returnDatePicker.IsOpen = false;
 #endif
         }
 
-        /// <summary>
-        /// Cancels the departure date selection and closes the picker.
-        /// </summary>
-        /// <param name="sender">Picker.</param>
-        /// <param name="e">Event data.</param>
         private void DepartureDatePicker_CancelButtonClicked(object? sender, EventArgs e)
         {
 #if ANDROID || IOS
@@ -256,11 +239,6 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
-        /// <summary>
-        /// Cancels the return date selection and closes the picker.
-        /// </summary>
-        /// <param name="sender">Picker.</param>
-        /// <param name="e">Event data.</param>
         private void ReturnDatePicker_CancelButtonClicked(object? sender, EventArgs e)
         {
 #if ANDROID || IOS
@@ -270,167 +248,103 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
-        /// <summary>
-        /// Opens the "From" picker and ensures the cascading City column reflects the selected Country.
-        /// </summary>
-        /// <param name="sender">Tap source.</param>
-        /// <param name="e">Event data.</param>
-        private void TapGestureRecognizer_Tapped(System.Object sender, System.EventArgs e)
+        // Tap to open From picker (no preselect).
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
 #if ANDROID || IOS
             mobileFromPicker.IsOpen = true;
-            if (mobileFromPicker.Columns[0].ItemsSource is List<string> country)
-            {
-                int selectedIndex = country.IndexOf(fromList[0]);
-                List<string> cities = this.GetCityList(countries[selectedIndex]);
-                int citySelectedIndex = cities.IndexOf(fromList[1]);
-                Syncfusion.Maui.Toolkit.Picker.PickerColumn cityColumn = new Syncfusion.Maui.Toolkit.Picker.PickerColumn() { HeaderText = "City", SelectedIndex = citySelectedIndex, ItemsSource = cities, Width = 150 };
-                if (mobileFromPicker.Columns[1].ItemsSource != cities)
-                {
-                    mobileFromPicker.Columns[1] = cityColumn;
-                }
-                else
-                {
-                    mobileFromPicker.Columns[1].SelectedIndex = citySelectedIndex;
-                }
-
-                mobileFromPicker.Columns[0].SelectedIndex = selectedIndex;
-            }
-
 #else
             fromPicker.IsOpen = true;
-            if (fromPicker.Columns[0].ItemsSource is List<string> country)
-            {
-                int selectedIndex = country.IndexOf(fromList[0]);
-                List<string> cities = this.GetCityList(countries[selectedIndex]);
-                int citySelectedIndex = cities.IndexOf(fromList[1]);
-                Syncfusion.Maui.Toolkit.Picker.PickerColumn cityColumn = new Syncfusion.Maui.Toolkit.Picker.PickerColumn() { HeaderText = "City", SelectedIndex = citySelectedIndex, ItemsSource = cities, Width = 150 };
-                if (fromPicker.Columns[1].ItemsSource != cities)
-                {
-                    fromPicker.Columns[1] = cityColumn;
-                }
-                else
-                {
-                    fromPicker.Columns[1].SelectedIndex = citySelectedIndex;
-                }
-
-                fromPicker.Columns[0].SelectedIndex = selectedIndex;
-            }
 #endif
         }
 
-        /// <summary>
-        /// Opens the "To" picker and ensures the cascading City column reflects the selected Country.
-        /// </summary>
-        /// <param name="sender">Tap source.</param>
-        /// <param name="e">Event data.</param>
-        void TapGestureRecognizer_Tapped_1(System.Object sender, System.EventArgs e)
+        // Tap to open To picker (no preselect).
+        private void TapGestureRecognizer_Tapped_1(object sender, EventArgs e)
         {
 #if ANDROID || IOS
             mobileToPicker.IsOpen = true;
-            if (mobileToPicker.Columns[0].ItemsSource is List<string> country)
-            {
-                int selectedIndex = country.IndexOf(toList[0]);
-                List<string> cities = this.GetCityList(countries[selectedIndex]);
-                int citySelectedIndex = cities.IndexOf(toList[1]);
-                Syncfusion.Maui.Toolkit.Picker.PickerColumn cityColumn = new Syncfusion.Maui.Toolkit.Picker.PickerColumn() { HeaderText = "City", SelectedIndex = citySelectedIndex, ItemsSource = cities, Width = 150 };
-                if (mobileToPicker.Columns[1].ItemsSource != cities)
-                {
-                    mobileToPicker.Columns[1] = cityColumn;
-                }
-                else
-                {
-                    mobileToPicker.Columns[1].SelectedIndex = citySelectedIndex;
-                }
-
-                mobileToPicker.Columns[0].SelectedIndex = selectedIndex;
-            }
 #else
             toPicker.IsOpen = true;
-            if (toPicker.Columns[0].ItemsSource is List<string> country)
-            {
-                int selectedIndex = country.IndexOf(toList[0]);
-                List<string> cities = this.GetCityList(countries[selectedIndex]);
-                int citySelectedIndex = cities.IndexOf(toList[1]);
-                Syncfusion.Maui.Toolkit.Picker.PickerColumn cityColumn = new Syncfusion.Maui.Toolkit.Picker.PickerColumn() { HeaderText = "City", SelectedIndex = citySelectedIndex, ItemsSource = cities, Width = 150 };
-                if (toPicker.Columns[1].ItemsSource != cities)
-                {
-                    toPicker.Columns[1] = cityColumn;
-                }
-                else
-                {
-                    toPicker.Columns[1].SelectedIndex = citySelectedIndex;
-                }
-
-                toPicker.Columns[0].SelectedIndex = selectedIndex;
-            }
 #endif
         }
 
-        /// <summary>
-        /// Handles cascading update when the Country column changes in the From picker.
-        /// </summary>
-        /// <param name="sender">SfPicker.</param>
-        /// <param name="e">Selection changed args.</param>
-        private void FromPicker_SelectionChanged(System.Object sender, Syncfusion.Maui.Toolkit.Picker.PickerSelectionChangedEventArgs e)
+        // Cascading: when Country changes, rebuild City column. No auto selection.
+        private void FromPicker_SelectionChanged(object sender, Syncfusion.Maui.Toolkit.Picker.PickerSelectionChangedEventArgs e)
         {
-            if (e.ColumnIndex == 1)
+            if (e.ColumnIndex == 1) return; // ignore city changes here
+
+            if (e.NewValue < 0)
             {
+                var emptyCityColumn = new Syncfusion.Maui.Toolkit.Picker.PickerColumn
+                {
+                    HeaderText = "City",
+                    SelectedIndex = -1,
+                    ItemsSource = new List<string>(),
+                    Width = 150
+                };
+#if ANDROID || IOS
+                mobileFromPicker.Columns[1] = emptyCityColumn;
+#else
+                fromPicker.Columns[1] = emptyCityColumn;
+#endif
                 return;
             }
 
             string country = countries[e.NewValue];
-            List<string> cities = this.GetCityList(country);
-            Syncfusion.Maui.Toolkit.Picker.PickerColumn cityColumn = new Syncfusion.Maui.Toolkit.Picker.PickerColumn() { HeaderText = "City", SelectedIndex = 0, ItemsSource = cities, Width = 150 };
-
+            var cities = GetCityList(country);
+            var cityColumn = new Syncfusion.Maui.Toolkit.Picker.PickerColumn
+            {
+                HeaderText = "City",
+                SelectedIndex = -1,
+                ItemsSource = cities,
+                Width = 150
+            };
 #if ANDROID || IOS
-            if (mobileFromPicker.Columns[1].ItemsSource != cities)
-            {
-                mobileFromPicker.Columns[1] = cityColumn;
-            }
+            mobileFromPicker.Columns[1] = cityColumn;
 #else
-            if (fromPicker.Columns[1].ItemsSource != cities)
-            {
-                fromPicker.Columns[1] = cityColumn;
-            }
+            fromPicker.Columns[1] = cityColumn;
 #endif
         }
 
-        /// <summary>
-        /// Handles cascading update when the Country column changes in the To picker.
-        /// </summary>
-        /// <param name="sender">SfPicker.</param>
-        /// <param name="e">Selection changed args.</param>
-        private void ToPicker_SelectionChanged(System.Object sender, Syncfusion.Maui.Toolkit.Picker.PickerSelectionChangedEventArgs e)
+        private void ToPicker_SelectionChanged(object sender, Syncfusion.Maui.Toolkit.Picker.PickerSelectionChangedEventArgs e)
         {
-            if (e.ColumnIndex == 1)
+            if (e.ColumnIndex == 1) return;
+
+            if (e.NewValue < 0)
             {
+                var emptyCityColumn = new Syncfusion.Maui.Toolkit.Picker.PickerColumn
+                {
+                    HeaderText = "City",
+                    SelectedIndex = -1,
+                    ItemsSource = new List<string>(),
+                    Width = 150
+                };
+#if ANDROID || IOS
+                mobileToPicker.Columns[1] = emptyCityColumn;
+#else
+                toPicker.Columns[1] = emptyCityColumn;
+#endif
                 return;
             }
 
             string country = countries[e.NewValue];
-            List<string> cities = this.GetCityList(country);
-            Syncfusion.Maui.Toolkit.Picker.PickerColumn cityColumn = new Syncfusion.Maui.Toolkit.Picker.PickerColumn() { HeaderText = "City", SelectedIndex = 0, ItemsSource = cities, Width = 150 };
-
+            var cities = GetCityList(country);
+            var cityColumn = new Syncfusion.Maui.Toolkit.Picker.PickerColumn
+            {
+                HeaderText = "City",
+                SelectedIndex = -1,
+                ItemsSource = cities,
+                Width = 150
+            };
 #if ANDROID || IOS
-            if (mobileToPicker.Columns[1].ItemsSource != cities)
-            {
-                mobileToPicker.Columns[1] = cityColumn;
-            }
+            mobileToPicker.Columns[1] = cityColumn;
 #else
-            if (toPicker.Columns[1].ItemsSource != cities)
-            {
-                toPicker.Columns[1] = cityColumn;
-            }
+            toPicker.Columns[1] = cityColumn;
 #endif
         }
 
-        /// <summary>
-        /// Cancels the From picker and closes it.
-        /// </summary>
-        /// <param name="sender">SfPicker.</param>
-        /// <param name="e">Event data.</param>
-        private void FromPicker_CancelButtonClicked(System.Object sender, System.EventArgs e)
+        // Cancel buttons for pickers
+        private void FromPicker_CancelButtonClicked(object sender, EventArgs e)
         {
 #if ANDROID || IOS
             mobileFromPicker.IsOpen = false;
@@ -439,12 +353,7 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
-        /// <summary>
-        /// Cancels the To picker and closes it.
-        /// </summary>
-        /// <param name="sender">SfPicker.</param>
-        /// <param name="e">Event data.</param>
-        private void ToPicker_CancelButtonClicked(System.Object sender, System.EventArgs e)
+        private void ToPicker_CancelButtonClicked(object sender, EventArgs e)
         {
 #if ANDROID || IOS
             mobileToPicker.IsOpen = false;
@@ -453,92 +362,86 @@ namespace PickerDecisionGuideSample.Pages
 #endif
         }
 
-        /// <summary>
-        /// Confirms the From picker selection and updates the label.
-        /// </summary>
-        /// <param name="sender">SfPicker.</param>
-        /// <param name="e">Event data.</param>
-        private void FromPicker_OkButtonClicked(System.Object sender, System.EventArgs e)
+        // OK buttons for pickers: only set label if both country and city chosen.
+        private void FromPicker_OkButtonClicked(object sender, EventArgs e)
         {
             if (sender is Syncfusion.Maui.Toolkit.Picker.SfPicker picker)
             {
-                int countryColumnIndex = picker.Columns[0].SelectedIndex;
-                int cityColumnIndex = picker.Columns[1].SelectedIndex;
-                string country = countries[countryColumnIndex];
-                List<string> cities = this.GetCityList(country);
-                string city = cities[cityColumnIndex];
-                fromList = new List<string>() { country, city };
+                int countryIdx = picker.Columns[0].SelectedIndex;
+                int cityIdx = picker.Columns[1].SelectedIndex;
+
+                if (countryIdx < 0 || cityIdx < 0)
+                {
 #if ANDROID || IOS
-                mobileFromLabel.Text = $"{city}, {country}";
+                    mobileFromPicker.IsOpen = false;
+#else
+                    fromPicker.IsOpen = false;
+#endif
+                    return;
+                }
+
+                string country = countries[countryIdx];
+                var cities = GetCityList(country);
+                string city = cities[cityIdx];
+                fromList = new List<string> { country, city };
+
+#if ANDROID || IOS
+                if (mobileFromLabel != null) mobileFromLabel.Text = $"{city}, {country}";
                 mobileFromPicker.IsOpen = false;
 #else
-                fromLabel.Text = $"{city}, {country}";
+                if (fromLabel != null) fromLabel.Text = $"{city}, {country}";
                 fromPicker.IsOpen = false;
 #endif
             }
         }
 
-        /// <summary>
-        /// Confirms the To picker selection and updates the label.
-        /// </summary>
-        /// <param name="sender">SfPicker.</param>
-        /// <param name="e">Event data.</param>
-        private void ToPicker_OkButtonClicked(System.Object sender, System.EventArgs e)
+        private void ToPicker_OkButtonClicked(object sender, EventArgs e)
         {
             if (sender is Syncfusion.Maui.Toolkit.Picker.SfPicker picker)
             {
-                int countryColumnIndex = picker.Columns[0].SelectedIndex;
-                int cityColumnIndex = picker.Columns[1].SelectedIndex;
-                string country = countries[countryColumnIndex];
-                List<string> cities = this.GetCityList(country);
-                string city = cities[cityColumnIndex];
-                toList = new List<string>() { country, city };
+                int countryIdx = picker.Columns[0].SelectedIndex;
+                int cityIdx = picker.Columns[1].SelectedIndex;
+
+                if (countryIdx < 0 || cityIdx < 0)
+                {
 #if ANDROID || IOS
-                mobileToLabel.Text = $"{city}, {country}";
+                    mobileToPicker.IsOpen = false;
+#else
+                    toPicker.IsOpen = false;
+#endif
+                    return;
+                }
+
+                string country = countries[countryIdx];
+                var cities = GetCityList(country);
+                string city = cities[cityIdx];
+                toList = new List<string> { country, city };
+
+#if ANDROID || IOS
+                if (mobileToLabel != null) mobileToLabel.Text = $"{city}, {country}";
                 mobileToPicker.IsOpen = false;
 #else
-                toLabel.Text = $"{city}, {country}";
+                if (toLabel != null) toLabel.Text = $"{city}, {country}";
                 toPicker.IsOpen = false;
 #endif
             }
         }
 
-        /// <summary>
-        /// Returns the city list for the given country.
-        /// </summary>
-        /// <param name="country">Country name.</param>
-        /// <returns>List of cities.</returns>
+        // Data helper
         private List<string> GetCityList(string country)
         {
-            if (country == "UK")
+            return country switch
             {
-                return ukCities;
-            }
-            else if (country == "USA")
-            {
-                return usaCities;
-            }
-            else if (country == "India")
-            {
-                return indiaCities;
-            }
-            else if (country == "UAE")
-            {
-                return uaeCities;
-            }
-            else if (country == "Germany")
-            {
-                return germanyCities;
-            }
-
-            return new List<string>();
+                "UK" => ukCities,
+                "USA" => usaCities,
+                "India" => indiaCities,
+                "UAE" => uaeCities,
+                "Germany" => germanyCities,
+                _ => new List<string>()
+            };
         }
 
-
-
-        /// <summary>
-        /// Creates a reusable style for OK buttons used inside popup templates.
-        /// </summary>
+        // Popup templates
         private Style GetOkButtonStyle()
         {
             return new Style(typeof(Button))
@@ -555,9 +458,6 @@ namespace PickerDecisionGuideSample.Pages
             };
         }
 
-        /// <summary>
-        /// Builds the footer template containing an OK button to dismiss the popup.
-        /// </summary>
         private DataTemplate GetFooterTemplate(SfPopup popup)
         {
             var footerTemplate = new DataTemplate(() =>
@@ -567,10 +467,8 @@ namespace PickerDecisionGuideSample.Pages
                     ColumnSpacing = 12,
                     Padding = new Thickness(24)
                 };
-
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
-
                 var oKButton = new Button
                 {
                     Text = "OK",
@@ -578,27 +476,17 @@ namespace PickerDecisionGuideSample.Pages
                     WidthRequest = 96,
                     HeightRequest = 40
                 };
-
-                oKButton.Clicked += (sender, args) =>
-                {
-                    popup.Dismiss();
-                };
-
+                oKButton.Clicked += (sender, args) => popup.Dismiss();
                 grid.Children.Add(oKButton);
                 Grid.SetColumn(oKButton, 1);
-
                 return grid;
             });
-
             return footerTemplate;
         }
 
-        /// <summary>
-        /// Builds the popup content template with a message and a divider.
-        /// </summary>
         private DataTemplate GetContentTemplate(SfPopup popup)
         {
-            var footerTemplate = new DataTemplate(() =>
+            var contentTemplate = new DataTemplate(() =>
             {
                 var grid = new Grid();
                 grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
@@ -612,50 +500,50 @@ namespace PickerDecisionGuideSample.Pages
                     HorizontalOptions = LayoutOptions.Start,
                     HorizontalTextAlignment = TextAlignment.Start
                 };
-
                 label.BindingContext = popup;
                 label.SetBinding(Label.TextProperty, "Message");
 
-                var stackLayout = new StackLayout
+                var divider = new StackLayout
                 {
                     Margin = new Thickness(0, 10, 0, 0),
                     HeightRequest = 1,
+                    BackgroundColor = Color.FromArgb("#611c1b1f")
                 };
 
-                stackLayout.BackgroundColor = Color.FromArgb("#611c1b1f");
                 grid.Children.Add(label);
-                grid.Children.Add(stackLayout);
-
+                grid.Children.Add(divider);
                 Grid.SetRow(label, 0);
-                Grid.SetRow(stackLayout, 1);
-
+                Grid.SetRow(divider, 1);
                 return grid;
             });
-
-            return footerTemplate;
+            return contentTemplate;
         }
 
-        /// <summary>
-        /// Simulates a search and shows a popup with the number of available flights.
-        /// </summary>
-        /// <param name="sender">Button.</param>
-        /// <param name="e">Event data.</param>
+        // Search: block until everything is selected.
         private void SearchButton_Clicked(object sender, EventArgs e)
         {
-            if (this.popup == null)
+            if (this.popup == null) return;
+
+            bool hasFrom = fromList.Count == 2;
+            bool hasTo = toList.Count == 2;
+            bool hasDates = from.HasValue && to.HasValue;
+
+            if (!hasFrom || !hasTo || !hasDates)
             {
+                this.popup.Message = "Please select From, To, Departure, and Return before searching.";
+                this.popup.Show();
                 return;
             }
 
-            Random randomNumber = new Random();
+            var randomNumber = new Random();
             int index = randomNumber.Next(0, 50);
 
 #if ANDROID || IOS
-            this.popup.Message = index + " Flights are available on that dates to depart from " + mobileFromLabel.Text.ToString();
+            this.popup.Message = $"{index} flights available for the selected route and dates. From: {mobileFromLabel.Text}";
 #else
-            this.popup.Message = index + " Flights are available on that dates to depart from " + fromLabel.Text.ToString();
+            this.popup.Message = $"{index} flights available for the selected route and dates. From: {fromLabel.Text}";
 #endif
-            popup.Show();
+            this.popup.Show();
         }
     }
 }

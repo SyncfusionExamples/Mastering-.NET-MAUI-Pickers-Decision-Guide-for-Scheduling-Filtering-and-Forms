@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:picker="clr-namespace:Syncfusion.Maui.Toolkit.Picker;assembly=Syncfusion.Maui.Toolkit"
-             xmlns:inputLayout="clr-namespace:Syncfusion.Maui.Toolkit.TextInputLayout;assembly=Syncfusion.Maui.Toolkit"
-             xmlns:buttons="clr-namespace:Syncfusion.Maui.Toolkit.Buttons;assembly=Syncfusion.Maui.Toolkit"
-             x:Class="PickerDecisionGuideSample.Pages.DateTimePickersPage">
+<ContentPage
+    x:Class="PickerDecisionGuideSample.Pages.DateTimePickersPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:picker="clr-namespace:Syncfusion.Maui.Toolkit.Picker;assembly=Syncfusion.Maui.Toolkit"
+    xmlns:inputLayout="clr-namespace:Syncfusion.Maui.Toolkit.TextInputLayout;assembly=Syncfusion.Maui.Toolkit"
+    xmlns:buttons="clr-namespace:Syncfusion.Maui.Toolkit.Buttons;assembly=Syncfusion.Maui.Toolkit">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Border HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="#FFFFFF" Stroke="#E0E0E0" >
+        <Border HorizontalOptions="Center"
+                VerticalOptions="Center"
+                BackgroundColor="#FFFFFF"
+                Stroke="#E0E0E0">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="16" />
             </Border.StrokeShape>
@@ -20,38 +24,84 @@
             </Border.Padding>
 
             <VerticalStackLayout Spacing="16" WidthRequest="360">
-                <Label Text="REMINDER" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center"/>
+                <Label Text="REMINDER"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center" />
 
-                <Border Stroke="#E6E6E6" BackgroundColor="#FAFAFA" StrokeShape="RoundRectangle 8" Padding="8" >
-                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8" VerticalOptions="Center">
-                        <Path WidthRequest="22" HeightRequest="22" VerticalOptions="Center" Fill="#D32F2F"
-                              Data="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6V11c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5S10.5 3.17 10.5 4v.68C7.63 5.36 6 7.92 6 11v5l-1.7 1.7c-.2.2-.3.45-.3.71V19h16v-.59c0-.26-.11-.51-.29-.7L18 16z"/>
-                        <inputLayout:SfTextInputLayout Grid.Column="1" Hint="Title" ReserveSpaceForAssistiveLabels="False">
-                            <Entry x:Name="titleEntry" HeightRequest="40"/>
-                        </inputLayout:SfTextInputLayout>
-                    </Grid>
-                </Border>
+                <!-- Title (center-aligned entry + centered icon) -->
+                <inputLayout:SfTextInputLayout
+                    Hint="Title"
+                    ContainerType="Outlined"
+                    BackgroundColor="#FAFAFA"
+                    Padding="8"
+                    InputViewPadding="0,12,0,12">
 
-                <Border Stroke="#E6E6E6" BackgroundColor="#FAFAFA" StrokeShape="RoundRectangle 8" Padding="8">
-                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
-                        <Path WidthRequest="22" HeightRequest="22" VerticalOptions="Center" Fill="#333333"
-                              Data="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm0 14H5V9h14v9zM7 11h5v5H7z"/>
-                        <VerticalStackLayout Grid.Column="1" Spacing="2">
-                            <Label Text="Date and Time" FontSize="12" TextColor="#888888"/>
-                            <Label x:Name="dateTimeText" FontSize="14"/>
-                        </VerticalStackLayout>
-                        <Grid.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnDateTimeFieldTapped"/>
-                        </Grid.GestureRecognizers>
-                    </Grid>
-                </Border>
+                    <inputLayout:SfTextInputLayout.LeadingView>
+                        <!-- Wrap icon in a Grid with the same height as Entry to center vertically -->
+                            <Path WidthRequest="40"
+                                  HeightRequest="35"
+                                  VerticalOptions="Center"
+                                  HorizontalOptions="Center"
+                                  Fill="#D32F2F"
+                                  Data="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6V11c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5S10.5 3.17 10.5 4v.68C7.63 5.36 6 7.92 6 11v5l-1.7 1.7c-.2.2-.3.45-.3.71V19h16v-.59c0-.26-.11-.51-.29-.7L18 16z" />
+                    </inputLayout:SfTextInputLayout.LeadingView>
 
-                <buttons:SfButton x:Name="saveButton" Text="SAVE" CornerRadius="24" HeightRequest="44" HorizontalOptions="Center" WidthRequest="160" BackgroundColor="#512BD4" TextColor="#FFFFFF" Clicked="OnSaveClicked"/>
+                    <Entry x:Name="titleEntry"
+                           HeightRequest="48"
+                           FontSize="20"
+                           VerticalOptions="Start"
+                           VerticalTextAlignment="Start" />
+                </inputLayout:SfTextInputLayout>
 
-                <picker:SfDateTimePicker x:Name="reminderDateTimePicker" Background="Transparent" Mode="Dialog"
-                                         OkButtonClicked="OnDateTimePickerOkButtonClicked" CancelButtonClicked="OnDateTimePickerCancelButtonClicked">
+                <!-- Date and Time (center-aligned, read-only; opens picker on tap) -->
+                <inputLayout:SfTextInputLayout
+    Hint="Date and Time"
+    ContainerType="Outlined"
+    BackgroundColor="#FAFAFA"
+    Padding="8"
+    InputViewPadding="0,12,0,12">
+
+                    <inputLayout:SfTextInputLayout.LeadingView>
+                        <!-- Wrap icon in a Grid with the same height as Entry to center vertically -->
+                        <Path WidthRequest="40"
+                  HeightRequest="35"
+                  VerticalOptions="Center"
+                  HorizontalOptions="Center"
+                                  Fill="#333333"
+                                  Data="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V6c0-1.1-.89-2-2-2zm0 14H5V9h14v9zM7 11h5v5H7z" />
+                    </inputLayout:SfTextInputLayout.LeadingView>
+
+                    <Entry x:Name="dateTimeEntry"
+                           Placeholder="Select date and time"
+                           HeightRequest="48"
+FontSize="20"
+VerticalOptions="Start"
+VerticalTextAlignment="Start" >
+                        <Entry.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnDateTimeFieldTapped" />
+                        </Entry.GestureRecognizers>
+                    </Entry>
+                </inputLayout:SfTextInputLayout>
+
+                <buttons:SfButton x:Name="saveButton"
+                                  Text="SAVE"
+                                  CornerRadius="24"
+                                  HeightRequest="44"
+                                  HorizontalOptions="Center"
+                                  WidthRequest="160"
+                                  BackgroundColor="#512BD4"
+                                  TextColor="#FFFFFF"
+                                  Clicked="OnSaveClicked" />
+
+                <!-- DateTime Picker dialog -->
+                <picker:SfDateTimePicker x:Name="reminderDateTimePicker"
+                                         Background="Transparent"
+                                         Mode="Dialog"
+                                         OkButtonClicked="OnDateTimePickerOkButtonClicked"
+                                         CancelButtonClicked="OnDateTimePickerCancelButtonClicked">
                     <picker:SfDateTimePicker.FooterView>
-                        <picker:PickerFooterView ShowOkButton="True" Height="40"/>
+                        <picker:PickerFooterView ShowOkButton="True" Height="40" />
                     </picker:SfDateTimePicker.FooterView>
                 </picker:SfDateTimePicker>
             </VerticalStackLayout>
