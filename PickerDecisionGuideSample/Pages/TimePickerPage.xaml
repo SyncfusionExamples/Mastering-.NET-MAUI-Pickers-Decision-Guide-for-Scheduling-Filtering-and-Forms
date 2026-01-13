@@ -52,7 +52,7 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <Grid>
-            <Border IsVisible="{OnPlatform Default=True, Android=False, iOS=False}" Margin="0" Padding="0" BackgroundColor="Transparent" Stroke="#E0E0E0" HeightRequest="550" WidthRequest="375" VerticalOptions="Center" HorizontalOptions="Center">
+            <Border IsVisible="{OnPlatform Default=True, Android=False, iOS=False}" Margin="0" Padding="0" BackgroundColor="Transparent" Stroke="#E0E0E0" HeightRequest="510" WidthRequest="375" VerticalOptions="Center" HorizontalOptions="Center">
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="16" />
                 </Border.StrokeShape>
