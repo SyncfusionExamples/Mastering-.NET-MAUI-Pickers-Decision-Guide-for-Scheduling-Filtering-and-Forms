@@ -48,7 +48,7 @@ Syncfusion’s .NET MAUI Pickers adapt naturally to three common workflows — s
 
 ## Output
 
-![PickerDecisionGuide GIF](https://github.com/user-attachments/assets/2d168d31-bf9a-400e-91ee-f231fab4ca6b)
+![PickerDecisionGuide GIF](https://github.com/user-attachments/assets/9dc135cb-c733-42c9-8f9d-5e09a5b8221a)
 
 ## Troubleshooting
 
@@ -56,4 +56,4 @@ Syncfusion’s .NET MAUI Pickers adapt naturally to three common workflows — s
 
 If you are facing a path too long exception when building this example project, close Visual Studio and rename the repository to short and build the project.
 
-For a step-by-step procedure, refer to the link.
+For a step-by-step procedure, refer to the [Choose the Right .NET MAUI Picker Blog](https://www.syncfusion.com/blogs/post/choose-right-dotnet-maui-picker).
